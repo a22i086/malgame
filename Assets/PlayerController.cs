@@ -9,10 +9,11 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] LayerMask groundLayer; // 地面レイヤーを指定
-    //[SerializeField] LayerMask characterLayer; // キャラクターレイヤーを指定
+    [SerializeField] LayerMask characterLayer; // キャラクターレイヤーを指定
     bool isMoving; //移動判定
     Vector3 targetPos;
-    GameObject selectedCharacter; // 選択されたキャラクターを格納
+    List<GameObject> selectedCharacters = new List<GameObject>(); // 選択されたキャラクターを管理するリスト
+    //GameObject selectedCharacter; // 選択されたキャラクターを格納
     // Start is called before the first frame update
     void Start()
     {
@@ -30,11 +31,18 @@ public class PlayerController : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // マウス座標からレイを飛ばす
             RaycastHit hit;
-            // if (Physics.Raycast(ray, out hit, Mathf.Infinity, characterLayer))
-            // {
-            //     selectedCharacter = hit.collider.gameObject; // 選択されたキャラクターを設定
-            // }
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, characterLayer))
+            {
+                GameObject clickedCharacter = hit.collider.gameObject;
+                if (!selectedCharacters.Contains(clickedCharacter))
+                {
+                    selectedCharacters.Add(clickedCharacter);
+                    Debug.Log("選択されたよ");
+                }
+                // selectedCharacter = hit.collider.gameObject; // 選択されたキャラクターを設定
+
+            }
+            else if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
             {
                 targetPos = hit.point; //当たった地点をターゲット位置に設定
                 StartCoroutine(MoveSelectedCharacters());
@@ -44,15 +52,24 @@ public class PlayerController : MonoBehaviour
     IEnumerator MoveSelectedCharacters()
     {
         isMoving = true; // 移動フラグをtrueに設定
-        SelectableCharacter[] characters = FindObjectsOfType<SelectableCharacter>();
-        foreach (var character in characters)
+        // SelectableCharacter[] characters = FindObjectsOfType<SelectableCharacter>();
+        // foreach (var character in characters)
+        // {
+        //     if (character.IsSelected())
+        //     {
+        //         StartCoroutine(MoveCharacter(character.gameObject)); // 各キャラクターの移動を開始
+        //         Debug.Log("キャラが移動するよ");
+        //     }
+        // }
+        //yield return new WaitUntil(() => !characters.Any(character => character.IsSelected() && Vector3.Distance(character.transform.position, targetPos) > Mathf.Epsilon));
+        //isMoving = false; // 移動フラグをfalseに設定
+
+        foreach (var character in selectedCharacters)
         {
-            if (character.IsSelected())
-            {
-                StartCoroutine(MoveCharacter(character.gameObject)); // 各キャラクターの移動を開始
-            }
+            StartCoroutine(MoveCharacter(character));
+            Debug.Log("キャラが移動するよ");
         }
-        yield return new WaitUntil(() => !characters.Any(character => character.IsSelected() && Vector3.Distance(character.transform.position, targetPos) > Mathf.Epsilon));
+        yield return new WaitUntil(() => !selectedCharacters.Any(character => Vector3.Distance(character.transform.position, targetPos) <= Mathf.Epsilon));
         isMoving = false; // 移動フラグをfalseに設定
     }
 
@@ -65,6 +82,6 @@ public class PlayerController : MonoBehaviour
 
             yield return null; // 1フレーム待つ
         }
-        isMoving = false; // 移動用フラグをfalse
+
     }
 }
