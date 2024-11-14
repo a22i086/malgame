@@ -11,6 +11,6 @@ public class Horse : Character
     }
     public override void Attack()
     {
-        Debug.Log("Horse was attacked!");
+        Debug.Log("Horse is attacking!");
     }
 }

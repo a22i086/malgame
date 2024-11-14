@@ -51,7 +51,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void HandleCharacterSelected(GameObject character) //選択されたときに呼び出される
+    private void HandleCharacterSelected(GameObject character) //選択されたときに呼び出される この部分が怪しい(犬以外の挙動について)
     {
         if (Time.time - lastClickTime > clickCooldown)
         {

@@ -19,6 +19,6 @@ public class Chicken : Character
 
     public override void Attack()
     {
-        Debug.Log("Chicken was attacked!");
+        Debug.Log("Chicken is attacking!");
     }
 }

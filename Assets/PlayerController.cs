@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // マウス座標からレイを飛ばす
             RaycastHit hit;
