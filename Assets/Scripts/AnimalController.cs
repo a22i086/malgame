@@ -1,18 +1,80 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using YourNamespace;
+using UnityEngine.AI;
+using System.Collections;
 
 public class AnimalController : MonoBehaviour
 {
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask characterLayer;
-    // Start is called before the first frame update
+    private NavMeshAgent agent;
+    private bool isSelected = false;
+    private bool canMove = true;
+    private float holdDuration = 0.5f; // 長押し時間（秒）
+    private float holdTime = 0.0f;
+
     void Start()
     {
-
+        agent = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            holdTime += Time.deltaTime;
 
+            if (holdTime >= holdDuration)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                // 追加: レイキャストがヒットした場合のログを出力
+                if (Physics.Raycast(ray, out hit))
+                {
+                    Debug.Log("Raycast Hit: " + hit.transform.name);
+                }
+
+                // キャラクターレイヤーにヒットしたかどうかのログを出力
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, characterLayer))
+                {
+                    Debug.Log("Character Layer Hit: " + hit.transform.name);
+                    // 動物がクリックされたかどうかをチェック
+                    if (hit.transform == transform)
+                    {
+                        isSelected = true;
+                        Debug.Log("Selected: " + isSelected);
+                    }
+                }
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (isSelected && canMove)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+                {
+                    Debug.Log("Ground Layer Hit: " + hit.point);
+                    agent.SetDestination(hit.point);
+                }
+
+                // クールダウンを開始
+                StartCoroutine(Cooldown());
+            }
+
+            // 選択状態をリセット
+            holdTime = 0.0f;
+            isSelected = false;
+        }
+    }
+
+    private IEnumerator Cooldown()
+    {
+        canMove = false;  // 移動を一時的に無効化
+        yield return new WaitForSeconds(1.0f);  // クールダウン時間待機
+        canMove = true;  // 再び移動を有効化
+    }
 }
