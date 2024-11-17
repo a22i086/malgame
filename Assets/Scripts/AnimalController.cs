@@ -11,10 +11,11 @@ public class AnimalController : MonoBehaviour
     private bool canMove = true;
     private float holdDuration = 0.5f; // 長押し時間（秒）
     private float holdTime = 0.0f;
+    private ICharacter character; //キャラクターのインターフェイス
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        character = GetComponent<ICharacter>();
     }
 
     void Update()
@@ -27,12 +28,6 @@ public class AnimalController : MonoBehaviour
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-
-                // 追加: レイキャストがヒットした場合のログを出力
-                if (Physics.Raycast(ray, out hit))
-                {
-                    Debug.Log("Raycast Hit: " + hit.transform.name);
-                }
 
                 // キャラクターレイヤーにヒットしたかどうかのログを出力
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, characterLayer))
@@ -58,7 +53,7 @@ public class AnimalController : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
                 {
                     Debug.Log("Ground Layer Hit: " + hit.point);
-                    agent.SetDestination(hit.point);
+                    character.Move(hit.point); //キャラクターのMoveを呼び出す
                 }
 
                 // クールダウンを開始
