@@ -404,8 +404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888e2160887c1884fa21ffa8a4e1c5e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
-  speed: 10
 --- !u!136 &617150948
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1395,8 +1393,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 372212a92c4337745abf757df51a3a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  speed: 5
 --- !u!114 &1457090476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2048,6 +2044,13 @@ MonoBehaviour:
   range: 5
   fireRate: 1
   BulletPrefab: {fileID: 6790940007437948232, guid: f70b8465cbf2ed74f994c5a3c68c2b4d, type: 3}
+  towerRenderer: {fileID: 2076222560}
+  transparency: 0.2
+--- !u!23 &2076222560 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2359803031424727781, guid: 5dcd789efd18416489dfef1af7c3945d, type: 3}
+  m_PrefabInstance: {fileID: 8535001093800676153}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2118630950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2087,6 +2090,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2359803031424727781, guid: 5dcd789efd18416489dfef1af7c3945d, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2359803031424727781, guid: 5dcd789efd18416489dfef1af7c3945d, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2359803031424727781, guid: 5dcd789efd18416489dfef1af7c3945d, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2359803031424727781, guid: 5dcd789efd18416489dfef1af7c3945d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a10785de1b9d2ec4eb964e89207b4815, type: 2}
     - target: {fileID: 3390984145399471019, guid: 5dcd789efd18416489dfef1af7c3945d, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -2134,6 +2153,14 @@ PrefabInstance:
     - target: {fileID: 5793524768132917725, guid: 5dcd789efd18416489dfef1af7c3945d, type: 3}
       propertyPath: m_Name
       value: Tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 5793524768132917725, guid: 5dcd789efd18416489dfef1af7c3945d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468409688093956171, guid: 5dcd789efd18416489dfef1af7c3945d, type: 3}
+      propertyPath: m_Size.x
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dcd789efd18416489dfef1af7c3945d, type: 3}

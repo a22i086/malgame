@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Horse : Character, ICharacter
+public class Horse : Character
 {
-    private NavMeshAgent agent;
-    void Awake()
+    protected override void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        base.Awake();
+        health = 150f;
+        speed = 12f;
+        attackPower = 20f;
+        attackRange = 10f;
+        agent.speed = speed;
     }
+
     public override void Move(Vector3 targetPosition)
     {
-        agent.SetDestination(targetPosition);
+        Vector3 fixedPosition = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
+        agent.SetDestination(fixedPosition);
     }
+
     public override void Attack()
     {
-        Debug.Log("Horse is attacking!");
+        Debug.Log("Horse is attacking with power: " + attackPower);
     }
 }

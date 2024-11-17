@@ -7,13 +7,20 @@ public class Tower : MonoBehaviour
     public float range = 10f; // 射程範囲
     public float fireRate = 1f; // 攻撃速度
     public GameObject BulletPrefab; // 発射するプロジェクトタイル
+    public Renderer towerRenderer;
+    private Color originalColor; // Towerの元となる色
+    public float transparency = 0.5f; // Towerの透明度
 
     private float fireCountdown = 0f;
     private Transform target;
 
     void Start()
     {
-
+        if (towerRenderer == null)
+        {
+            towerRenderer = GetComponent<Renderer>();
+        }
+        originalColor = towerRenderer.material.color;
     }
     void Update()
     {
@@ -64,7 +71,18 @@ public class Tower : MonoBehaviour
             bullet.Seek(target);
         }
     }
-
+    void OnMouseEnter() // マウスカーソルがTowerの上に来たら透明に
+    {
+        Debug.Log("enter");
+        Color newColor = originalColor;
+        newColor.a = transparency;
+        towerRenderer.material.color = newColor;
+    }
+    void OnMouseExit()
+    {
+        Debug.Log("exit");
+        towerRenderer.material.color = originalColor;
+    }
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
