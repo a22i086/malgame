@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Dog : Character
 {
@@ -11,7 +12,9 @@ public class Dog : Character
         speed = 10f;
         attackPower = 15f;
         attackRange = 7f;
+        attackCooldown = 2.0f;
         agent.speed = speed;
+        lastAttackTime = -attackCooldown;
     }
 
     public override void Move(Vector3 targetPosition)
@@ -23,13 +26,26 @@ public class Dog : Character
     public override void Attack()
     {
         Debug.Log("Dog is attacking with power: " + attackPower);
+        //敵にダメージを与える
+        if (target != null)
+        {
+            Enemy enemy = target.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(attackPower);
+            }
+        }
+        lastAttackTime = Time.time;
     }
     protected override void Update()
     {
         base.Update();
         if (target != null && Vector3.Distance(transform.position, target.position) <= attackRange)
         {
-            Attack();
+            if (Time.time >= lastAttackTime + attackCooldown)
+            {
+                Attack();
+            }
         }
     }
 }
