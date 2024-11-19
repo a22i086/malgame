@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Chicken : Character
+public class Chicken : Character, IHealth
 {
+    private HealthManager healthManager;
+    public float Health => healthManager.Health;
+    public float MaxHealth => healthManager.MaxHealth;
     private Vector3 initialPosition;
     protected override void Awake()
     {
@@ -13,8 +16,11 @@ public class Chicken : Character
         speed = 7f;
         attackPower = 10f;
         attackRange = 5f;
+        attackCooldown = 2.0f;
         agent.speed = speed;
         agent.updatePosition = false; // NavMeshAgentの高さ制御を無効化
+        lastAttackTime = -attackCooldown;
+        healthManager = GetComponent<HealthManager>();
     }
 
     public override void Move(Vector3 targetPosition)
@@ -27,6 +33,15 @@ public class Chicken : Character
     public override void Attack()
     {
         Debug.Log("Chicken is attacking with power: " + attackPower);
+        if (target != null)
+        {
+            Enemy enemy = target.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(attackPower);
+            }
+        }
+        lastAttackTime = Time.time;
     }
 
     protected override void Update()
@@ -34,8 +49,15 @@ public class Chicken : Character
         base.Update();
         if (target != null && Vector3.Distance(transform.position, target.position) <= attackRange)
         {
-            Attack();
+            if (Time.time >= lastAttackTime + attackCooldown)
+            {
+                Attack();
+            }
         }
+    }
+    public void TakeDamage(float amount)
+    {
+        healthManager.TakeDamage(amount);
     }
 
     private IEnumerator UpdatePosition() //Y座標を固定したまま移動制御

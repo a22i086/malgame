@@ -34,6 +34,15 @@ public class Bullet : MonoBehaviour
     void HitTarget()
     {
         Debug.Log("Hit target");
+        // 敵にダメージを与える処理を追加
+        if (target != null)
+        {
+            HealthManager healthManager = target.GetComponent<HealthManager>();
+            if (healthManager != null)
+            {
+                healthManager.TakeDamage(damage);
+            }
+        }
         Destroy(gameObject);
     }
 }

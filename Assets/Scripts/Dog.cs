@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Dog : Character
+public class Dog : Character, IHealth
 {
+    private HealthManager healthManager;
+    public float Health => healthManager.Health;
+    public float MaxHealth => healthManager.MaxHealth;
     protected override void Awake()
     {
         base.Awake();
@@ -15,6 +18,7 @@ public class Dog : Character
         attackCooldown = 2.0f;
         agent.speed = speed;
         lastAttackTime = -attackCooldown;
+        healthManager = GetComponent<HealthManager>();
     }
 
     public override void Move(Vector3 targetPosition)
@@ -47,5 +51,9 @@ public class Dog : Character
                 Attack();
             }
         }
+    }
+    public void TakeDamage(float amount)
+    {
+        healthManager.TakeDamage(amount);
     }
 }

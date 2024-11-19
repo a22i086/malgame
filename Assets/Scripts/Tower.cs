@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public class Tower : MonoBehaviour, IHealth
 {
     public float range = 10f; // 射程範囲
     public float fireRate = 1f; // 攻撃速度
+    private HealthManager healthManager;
+    public float Health => healthManager.Health;
+    public float MaxHealth => healthManager.MaxHealth;
     public GameObject BulletPrefab; // 発射するプロジェクトタイル
     public Renderer towerRenderer;
     private Color originalColor; // Towerの元となる色
@@ -21,6 +24,10 @@ public class Tower : MonoBehaviour
             towerRenderer = GetComponent<Renderer>();
         }
         originalColor = towerRenderer.material.color;
+    }
+    void Awake()
+    {
+        healthManager = GetComponent<HealthManager>();
     }
     void Update()
     {
@@ -87,5 +94,9 @@ public class Tower : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, range);
+    }
+    public void TakeDamage(float amount)
+    {
+        healthManager.TakeDamage(amount);
     }
 }

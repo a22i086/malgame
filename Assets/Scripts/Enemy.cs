@@ -1,22 +1,19 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IHealth
 {
-    public float health = 100f;
+    private HealthManager healthManager;
+
+    public float Health => healthManager.Health;
+    public float MaxHealth => healthManager.MaxHealth;
+
+    void Awake()
+    {
+        healthManager = GetComponent<HealthManager>();
+    }
 
     public void TakeDamage(float amount)
     {
-        health -= amount;
-        if (health <= 0f)
-        {
-            Die();
-        }
-    }
-
-    void Die()
-    {
-        // 敵が死亡したときの処理（例：アニメーション再生、オブジェクト破壊など）
-        Debug.Log("Enemy died!");
-        Destroy(gameObject);
+        healthManager.TakeDamage(amount);
     }
 }
