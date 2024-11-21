@@ -16,6 +16,7 @@ public class Tower : MonoBehaviour, IHealth
 
     private float fireCountdown = 0f;
     private Transform target;
+    private GameManager gameManager;
 
     void Start()
     {
@@ -24,6 +25,8 @@ public class Tower : MonoBehaviour, IHealth
             towerRenderer = GetComponent<Renderer>();
         }
         originalColor = towerRenderer.material.color;
+        gameManager = FindObjectOfType<GameManager>(); //ゲームマネージャーをシーンから見つけて取得
+
     }
     void Awake()
     {
@@ -98,5 +101,10 @@ public class Tower : MonoBehaviour, IHealth
     public void TakeDamage(float amount)
     {
         healthManager.TakeDamage(amount);
+    }
+    void OnDestroy()
+    {
+        Debug.Log("タワー崩壊");
+        gameManager.Game_Over();
     }
 }
