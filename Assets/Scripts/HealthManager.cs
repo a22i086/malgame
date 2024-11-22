@@ -4,6 +4,7 @@ public class HealthManager : MonoBehaviour, IHealth
 {
     [SerializeField] private float maxHealth = 100f;
     private float currentHealth;
+    private GameManager gameManager;
 
     public float Health => currentHealth;
     public float MaxHealth => maxHealth;
@@ -11,6 +12,7 @@ public class HealthManager : MonoBehaviour, IHealth
     void Awake()
     {
         currentHealth = maxHealth;
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     public void TakeDamage(float amount)
@@ -25,6 +27,10 @@ public class HealthManager : MonoBehaviour, IHealth
     private void Die()
     {
         Debug.Log($"{gameObject.name} died!");
+        if (CompareTag("Tower") && gameManager != null)
+        {
+            gameManager.Game_Over();
+        }
         Destroy(gameObject);
     }
 }

@@ -102,9 +102,4 @@ public class Tower : MonoBehaviour, IHealth
     {
         healthManager.TakeDamage(amount);
     }
-    void OnDestroy()
-    {
-        Debug.Log("タワー崩壊");
-        gameManager.Game_Over();
-    }
 }
