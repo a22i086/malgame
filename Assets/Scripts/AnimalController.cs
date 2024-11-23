@@ -7,6 +7,8 @@ public class AnimalController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask characterLayer;
     private NavMeshAgent agent;
+    public GameObject selectionCirclePrefab;
+    private GameObject selectionCircleInstance;
     private bool isSelected = false;
     private bool canMove = true;
     private float holdDuration = 0.5f; // 長押し時間（秒）
@@ -16,6 +18,13 @@ public class AnimalController : MonoBehaviour
     void Start()
     {
         character = GetComponent<ICharacter>();
+        selectionCircleInstance = Instantiate(selectionCirclePrefab, transform.position, Quaternion.Euler(0f, 0f, 0f), transform);
+        selectionCircleInstance.SetActive(false);
+        //動物のサイズに応じてサークルのスケールを調整してるつもり、わかんない
+        float scaleFactor_x = transform.localScale.x;
+        float scaleFactor_z = transform.localScale.z;
+
+        selectionCircleInstance.transform.localScale = new Vector3(scaleFactor_x, 0.01f, scaleFactor_z);
     }
 
     void Update()
@@ -38,6 +47,7 @@ public class AnimalController : MonoBehaviour
                     {
                         isSelected = true;
                         Debug.Log("Selected: " + isSelected);
+                        selectionCircleInstance.SetActive(true); //サークルを表示
                     }
                 }
             }
@@ -63,6 +73,7 @@ public class AnimalController : MonoBehaviour
             // 選択状態をリセット
             holdTime = 0.0f;
             isSelected = false;
+            selectionCircleInstance.SetActive(false); // サークルの非表示
         }
     }
 
