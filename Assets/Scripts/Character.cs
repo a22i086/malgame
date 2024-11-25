@@ -13,6 +13,7 @@ public abstract class Character : MonoBehaviour, ICharacter
     protected float lastAttackTime;
     protected NavMeshAgent agent;
     protected Transform target;
+    public GameObject attackEffectPrefab;
 
     protected virtual void Awake()
     {
@@ -68,6 +69,14 @@ public abstract class Character : MonoBehaviour, ICharacter
         if (target != null)
         {
             agent.SetDestination(target.position);
+        }
+    }
+    // エフェクトを表示させる
+    protected void ShowAttackEffect()
+    {
+        if (attackEffectPrefab != null && target != null)
+        {
+            Instantiate(attackEffectPrefab, target.position, Quaternion.identity);
         }
     }
     // protected void MoveBackwards()

@@ -773,6 +773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36710f1fd272e34a943a8e56ddcb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
 --- !u!54 &246966206
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1870,6 +1871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888e2160887c1884fa21ffa8a4e1c5e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
 --- !u!136 &617150948
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4704,6 +4706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 372212a92c4337745abf757df51a3a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
 --- !u!114 &1457090476
 MonoBehaviour:
   m_ObjectHideFlags: 0

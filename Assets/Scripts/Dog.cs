@@ -38,6 +38,7 @@ public class Dog : Character, IHealth
             {
                 enemy.TakeDamage(attackPower);
             }
+            ShowAttackEffect();
         }
         lastAttackTime = Time.time;
     }

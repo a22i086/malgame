@@ -38,6 +38,7 @@ public class Horse : Character, IHealth
             {
                 enemy.TakeDamage(attackPower);
             }
+            ShowAttackEffect();
         }
         lastAttackTime = Time.time;
     }

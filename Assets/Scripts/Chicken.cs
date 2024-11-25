@@ -40,6 +40,7 @@ public class Chicken : Character, IHealth
             {
                 enemy.TakeDamage(attackPower);
             }
+            ShowAttackEffect();
         }
         lastAttackTime = Time.time;
     }
