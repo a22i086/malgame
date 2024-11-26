@@ -1,30 +1,67 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public GameObject prefabToSpawn;
+    public float cooldownTime;
+    private float lastSpawnTime;
     private Canvas canvas;
     private GameObject spawnedObject; // ドラッグ中のプレハブ
     private Rigidbody rb; // Rigidbody参照
     private float fixedY = 0.5f; // 固定するY座標
+    public GameObject cooldownCircle; // GameObject に変更
 
     void Awake()
     {
         canvas = GetComponentInParent<Canvas>();
+        lastSpawnTime = -cooldownTime;
+        if (cooldownCircle != null)
+        {
+            cooldownCircle.SetActive(false); // 初期状態で非表示
+        }
+    }
+
+    void Update()
+    {
+        if (cooldownCircle != null)
+        {
+            float elapsedTime = Time.time - lastSpawnTime;
+            float fillAmount = Mathf.Clamp01(elapsedTime / cooldownTime);
+            Image cooldownImage = cooldownCircle.GetComponent<Image>();
+            if (cooldownImage != null)
+            {
+                cooldownImage.fillAmount = fillAmount;
+            }
+
+            // クールダウン中は円を表示し、終了後は非表示にする
+            if (fillAmount < 1f)
+            {
+                cooldownCircle.SetActive(true);
+            }
+            else
+            {
+                cooldownCircle.SetActive(false);
+            }
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // プレハブを生成してカーソルに追随させる
-        Vector3 spawnPosition = GetWorldPosition(eventData);
-        spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
-
-        // Rigidbodyを無効化
-        rb = spawnedObject.GetComponent<Rigidbody>();
-        if (rb != null)
+        if (Time.time >= lastSpawnTime + cooldownTime)
         {
-            rb.isKinematic = true;
+            // プレハブを生成してカーソルに追随させる
+            Vector3 spawnPosition = GetWorldPosition(eventData);
+            spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
+
+            // Rigidbodyを無効化
+            rb = spawnedObject.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+            }
         }
     }
 
@@ -56,6 +93,17 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
             spawnedObject = null;
             Debug.Log($"Spawned {prefabToSpawn.name} at {finalPosition}");
+            lastSpawnTime = Time.time;
+            //動物を置いたらCT開始
+            if (cooldownCircle != null)
+            {
+                Image cooldownImage = cooldownCircle.GetComponent<Image>();
+                if (cooldownImage != null)
+                {
+                    cooldownImage.fillAmount = 0f;
+                }
+                cooldownCircle.SetActive(true);
+            }
         }
     }
 
