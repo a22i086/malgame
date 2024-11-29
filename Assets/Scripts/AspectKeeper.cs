@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[ExecuteAlways] // 実行中だけでなくエディターをいじってるときは常に動かせるように
+public class AspectKeeper : MonoBehaviour
+{
+    [SerializeField] private Camera targetCamera;
+    [SerializeField] private Vector2 aspectVec;
+
+    // Update is called once per frame
+    void Update()
+    {
+        var screenAspect = Screen.width / (float)Screen.height; // 画面のアスペクト比
+        var targetAspect = aspectVec.x / aspectVec.y; // 目的のアスペクト比
+
+        var magRate = targetAspect / screenAspect; // 目的アスペクト比にするための倍率
+
+        var viewportRect = new Rect(0, 0, 1, 1); //ViewPort初期値でRectを作成
+        // viewportRect.width = magRate; // 使用する横幅を変更
+
+        if (magRate < 1)
+        {
+            viewportRect.width = magRate; //使用する横幅を変更
+            viewportRect.x = 0.5f - viewportRect.width * 0.5f; // 中央寄せ
+        }
+        else
+        {
+            viewportRect.width = 1 / magRate;
+            viewportRect.x = 0.5f - viewportRect.width * 0.5f; // 中央寄せ
+        }
+        targetCamera.rect = viewportRect; // カメラのViewportに適用
+    }
+}
