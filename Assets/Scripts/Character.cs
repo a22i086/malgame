@@ -79,6 +79,11 @@ public abstract class Character : MonoBehaviour, ICharacter
             Instantiate(attackEffectPrefab, target.position, Quaternion.identity);
         }
     }
+
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
+    }
     // protected void MoveBackwards()
     // {
     //     Vector3 directionToMoveBackwards = -transform.forward * 1.0f;
