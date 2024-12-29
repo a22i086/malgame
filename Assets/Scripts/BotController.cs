@@ -30,6 +30,7 @@ public class BotController : MonoBehaviour
         GameObject selectedAnimalPrefab = animalPrefabs[Random.Range(0, animalPrefabs.Count)];
         GameObject animalInstance = Instantiate(selectedAnimalPrefab, spawnPoint.position, Quaternion.identity);
         Character animalCharacter = animalInstance.GetComponent<Character>();
+        animalCharacter.team = 1;
         gameManager.AddBotAnimal(animalCharacter);
     }
 }

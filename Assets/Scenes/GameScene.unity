@@ -1296,6 +1296,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
+  gameManager: {fileID: 309344848}
+  team: 0
 --- !u!54 &246966206
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2661,6 +2663,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
+  gameManager: {fileID: 309344848}
+  team: 0
 --- !u!136 &617150948
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6195,6 +6199,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
+  gameManager: {fileID: 309344848}
+  team: 0
 --- !u!114 &1457090476
 MonoBehaviour:
   m_ObjectHideFlags: 0

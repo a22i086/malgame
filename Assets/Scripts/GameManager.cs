@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        UpdateTargets();
+        //UpdateTargets();
     }
 
     public void AddPlayerAnimal(Character animal)
@@ -27,22 +27,38 @@ public class GameManager : MonoBehaviour
         botAnimals.Add(animal);
     }
 
-    private void UpdateTargets()
+    // private void UpdateTargets()
+    // {
+    //     foreach (var playerAnimal in playerAnimals)
+    //     {
+    //         if (botAnimals.Count > 0)
+    //         {
+    //             playerAnimal.SetTarget(botAnimals[0].transform);
+    //         }
+    //     }
+    //     foreach (var botAnimal in botAnimals)
+    //     {
+    //         if (playerAnimals.Count > 0)
+    //         {
+    //             botAnimal.SetTarget(playerAnimals[0].transform);
+    //         }
+    //     }
+    // }
+
+    public List<Character> GetEnemies(Character requester)
     {
-        foreach (var playerAnimal in playerAnimals)
+        List<Character> enemies = new List<Character>();
+
+        if (playerAnimals.Contains(requester))
         {
-            if (botAnimals.Count > 0)
-            {
-                playerAnimal.SetTarget(botAnimals[0].transform);
-            }
+            enemies.AddRange(botAnimals);
         }
-        foreach (var botAnimal in botAnimals)
+        else if (botAnimals.Contains(requester))
         {
-            if (playerAnimals.Count > 0)
-            {
-                botAnimal.SetTarget(playerAnimals[0].transform);
-            }
+            enemies.AddRange(playerAnimals);
         }
+
+        return enemies.FindAll(e => e.team != requester.team);
     }
     public void Game_Over()
     {

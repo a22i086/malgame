@@ -14,6 +14,9 @@ public abstract class Character : MonoBehaviour, ICharacter
     protected NavMeshAgent agent;
     protected Transform target;
     public GameObject attackEffectPrefab;
+    public GameManager gameManager;
+
+    public int team;
 
     protected virtual void Awake()
     {
@@ -23,7 +26,10 @@ public abstract class Character : MonoBehaviour, ICharacter
 
     protected virtual void Update()
     {
-        FindTarget();
+        if (target == null || !target.gameObject.activeInHierarchy)
+        {
+            FindTarget();
+        }
         if (target != null)
         {
             MoveTowardsTarget();
@@ -40,12 +46,21 @@ public abstract class Character : MonoBehaviour, ICharacter
 
     protected void FindTarget()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        float shortestDistance = Mathf.Infinity;
-        GameObject nearestEnemy = null;
+        // GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        // float shortestDistance = Mathf.Infinity;
+        // GameObject nearestEnemy = null;
 
-        foreach (GameObject enemy in enemies)
+        List<Character> enemies = gameManager.GetEnemies(this);
+
+        float shortestDistance = Mathf.Infinity;
+        Character nearestEnemy = null;
+
+        foreach (Character enemy in enemies)
         {
+            if (enemy.team == this.team)
+            {
+                continue;
+            }
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
             if (distanceToEnemy < shortestDistance && distanceToEnemy <= attackRange)
             {

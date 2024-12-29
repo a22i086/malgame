@@ -7,6 +7,7 @@ public class Horse : Character, IHealth
     private HealthManager healthManager;
     public float Health => healthManager.Health;
     public float MaxHealth => healthManager.MaxHealth;
+    private GameManager gameManager;
 
     protected override void Awake()
     {
@@ -19,6 +20,25 @@ public class Horse : Character, IHealth
         agent.speed = speed;
         lastAttackTime = -attackCooldown;
         healthManager = GetComponent<HealthManager>();
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
+    protected override void Update()
+    {
+        if (target == null || !target.gameObject.activeInHierarchy)
+        {
+            FindTarget();
+        }
+
+        if (target != null)
+        {
+            MoveTowardsTarget();
+            if (Time.time >= lastAttackTime + attackCooldown)
+            {
+                Attack();
+                lastAttackTime = Time.time;
+            }
+        }
     }
 
     public override void Move(Vector3 targetPosition)
@@ -30,30 +50,17 @@ public class Horse : Character, IHealth
     public override void Attack()
     {
         Debug.Log("Horse is attacking with power: " + attackPower);
-        //敵にダメージを与える
         if (target != null)
         {
-            Enemy enemy = target.GetComponent<Enemy>();
-            if (enemy != null)
+            IHealth enemyHealth = target.GetComponent<IHealth>();
+            if (enemyHealth != null)
             {
-                enemy.TakeDamage(attackPower);
+                enemyHealth.TakeDamage(attackPower);
+                ShowAttackEffect();
             }
-            ShowAttackEffect();
         }
-        lastAttackTime = Time.time;
     }
 
-    protected override void Update()
-    {
-        base.Update();
-        if (target != null && Vector3.Distance(transform.position, target.position) <= attackRange)
-        {
-            if (Time.time >= lastAttackTime + attackCooldown)
-            {
-                Attack();
-            }
-        }
-    }
     public void TakeDamage(float amount)
     {
         healthManager.TakeDamage(amount);
