@@ -8,7 +8,6 @@ public class Dog : Character, IHealth
     private HealthManager healthManager;
     public float Health => healthManager.Health;
     public float MaxHealth => healthManager.MaxHealth;
-    private GameManager gameManager;
 
     protected override void Awake()
     {
@@ -21,25 +20,11 @@ public class Dog : Character, IHealth
         agent.speed = speed;
         lastAttackTime = -attackCooldown;
         healthManager = GetComponent<HealthManager>();
-        gameManager = FindObjectOfType<GameManager>();
     }
 
     protected override void Update()
     {
-        if (target == null || !target.gameObject.activeInHierarchy)
-        {
-            FindTarget();
-        }
-
-        if (target != null)
-        {
-            MoveTowardsTarget();
-            if (Time.time >= lastAttackTime + attackCooldown)
-            {
-                Attack();
-                lastAttackTime = Time.time;
-            }
-        }
+        base.Update();
     }
 
     public override void Move(Vector3 targetPosition)

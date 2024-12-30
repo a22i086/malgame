@@ -8,7 +8,6 @@ public class Chicken : Character, IHealth
     private HealthManager healthManager;
     public float Health => healthManager.Health;
     public float MaxHealth => healthManager.MaxHealth;
-    private GameManager gameManager;
     private Vector3 initialPosition;
     protected override void Awake()
     {
@@ -22,24 +21,10 @@ public class Chicken : Character, IHealth
         agent.updatePosition = false; // NavMeshAgentの高さ制御を無効化
         lastAttackTime = -attackCooldown;
         healthManager = GetComponent<HealthManager>();
-        gameManager = FindObjectOfType<GameManager>();
     }
     protected override void Update()
     {
-        if (target == null || !target.gameObject.activeInHierarchy)
-        {
-            FindTarget();
-        }
-
-        if (target != null)
-        {
-            MoveTowardsTarget();
-            if (Time.time >= lastAttackTime + attackCooldown)
-            {
-                Attack();
-                lastAttackTime = Time.time;
-            }
-        }
+        base.Update();
     }
 
     public override void Move(Vector3 targetPosition)

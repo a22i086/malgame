@@ -13,11 +13,13 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private Rigidbody rb; // Rigidbody参照
     private float fixedY = 0.5f; // 固定するY座標
     public GameObject cooldownCircle; // GameObject に変更
+    public GameManager gameManager; // ゲームマネージャーへの参照
 
     void Awake()
     {
         canvas = GetComponentInParent<Canvas>();
         lastSpawnTime = -cooldownTime;
+        gameManager = FindObjectOfType<GameManager>();
         if (cooldownCircle != null)
         {
             cooldownCircle.SetActive(false); // 初期状態で非表示
@@ -55,6 +57,8 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             // プレハブを生成してカーソルに追随させる
             Vector3 spawnPosition = GetWorldPosition(eventData);
             spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
+            Character animalCharacter = spawnedObject.GetComponent<Character>();
+            gameManager.AddPlayerAnimal(animalCharacter);
 
             // Rigidbodyを無効化
             rb = spawnedObject.GetComponent<Rigidbody>();

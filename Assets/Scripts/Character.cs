@@ -22,6 +22,8 @@ public abstract class Character : MonoBehaviour, ICharacter
     {
         agent = GetComponent<NavMeshAgent>();
         lastAttackTime = -attackCooldown;
+        gameManager = FindObjectOfType<GameManager>();
+        Debug.Log("GameManager found: " + (gameManager != null));
     }
 
     protected virtual void Update()
@@ -62,7 +64,7 @@ public abstract class Character : MonoBehaviour, ICharacter
                 continue;
             }
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy < shortestDistance && distanceToEnemy <= attackRange)
+            if (distanceToEnemy < shortestDistance)
             {
                 shortestDistance = distanceToEnemy;
                 nearestEnemy = enemy;
