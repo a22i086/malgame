@@ -52,6 +52,11 @@ public class Chicken : Character, IHealth
     public void TakeDamage(float amount)
     {
         healthManager.TakeDamage(amount);
+        if (healthManager.Health <= 0)
+        {
+            gameManager.RemoveAnimal(this);
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator UpdatePosition() //Y座標を固定したまま移動制御

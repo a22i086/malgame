@@ -49,5 +49,10 @@ public class Horse : Character, IHealth
     public void TakeDamage(float amount)
     {
         healthManager.TakeDamage(amount);
+        if (healthManager.Health <= 0)
+        {
+            gameManager.RemoveAnimal(this);
+            Destroy(gameObject);
+        }
     }
 }

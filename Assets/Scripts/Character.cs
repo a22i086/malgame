@@ -32,7 +32,7 @@ public abstract class Character : MonoBehaviour, ICharacter
         {
             FindTarget();
         }
-        if (target != null)
+        if (target != null && target.gameObject.activeInHierarchy)
         {
             MoveTowardsTarget();
             if (Time.time >= lastAttackTime + attackCooldown)
@@ -59,16 +59,16 @@ public abstract class Character : MonoBehaviour, ICharacter
 
         foreach (Character enemy in enemies)
         {
-            if (enemy.team == this.team)
+            if (enemy != null && enemy.gameObject != null && enemy.team != this.team)
             {
-                continue;
+                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                if (distanceToEnemy < shortestDistance)
+                {
+                    shortestDistance = distanceToEnemy;
+                    nearestEnemy = enemy;
+                }
             }
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy < shortestDistance)
-            {
-                shortestDistance = distanceToEnemy;
-                nearestEnemy = enemy;
-            }
+
         }
 
         if (nearestEnemy != null)
