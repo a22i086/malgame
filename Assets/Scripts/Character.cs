@@ -6,9 +6,9 @@ using UnityEngine.AI;
 public abstract class Character : MonoBehaviour, ICharacter
 {
     protected float health;
-    protected float speed;
+    public float speed;
     protected float attackPower;
-    protected float attackRange;
+    public float attackRange;
     protected float attackCooldown;
     protected float lastAttackTime;
     protected NavMeshAgent agent;
@@ -35,7 +35,8 @@ public abstract class Character : MonoBehaviour, ICharacter
         if (target != null && target.gameObject.activeInHierarchy)
         {
             MoveTowardsTarget();
-            if (Time.time >= lastAttackTime + attackCooldown)
+            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+            if (distanceToTarget <= attackRange && Time.time >= lastAttackTime + attackCooldown)
             {
                 Attack();
                 lastAttackTime = Time.time;

@@ -961,7 +961,7 @@ RectTransform:
   m_GameObject: {fileID: 167081257}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.50781244, y: 0.50781244, z: 0.50781244}
+  m_LocalScale: {x: 0.50859374, y: 0.50859374, z: 0.50859374}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1319035031}
@@ -973,7 +973,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 720, y: 1280.0001}
+  m_SizeDelta: {x: 720, y: 1280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &167081259
 MonoBehaviour:
@@ -1295,6 +1295,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36710f1fd272e34a943a8e56ddcb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  attackRange: 0
   attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
   gameManager: {fileID: 309344848}
   team: 0
@@ -2662,6 +2664,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888e2160887c1884fa21ffa8a4e1c5e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  attackRange: 0
   attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
   gameManager: {fileID: 309344848}
   team: 0
@@ -4278,9 +4282,9 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.055200756
+    x: 0.055597693
     y: 0
-    width: 0.8895985
+    width: 0.8888046
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -5771,6 +5775,7 @@ MonoBehaviour:
   - {fileID: 246966201}
   spawnPoint: {fileID: 1307034180}
   spawnInterval: 5
+  waitTimeAfterSpawn: 2
   gameManager: {fileID: 0}
 --- !u!4 &1307034180 stripped
 Transform:
@@ -5873,6 +5878,7 @@ MonoBehaviour:
   prefabToSpawn: {fileID: 1457090469}
   cooldownTime: 3
   cooldownCircle: {fileID: 943381139}
+  gameManager: {fileID: 0}
 --- !u!225 &1319035036
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -6198,6 +6204,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 372212a92c4337745abf757df51a3a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  attackRange: 0
   attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
   gameManager: {fileID: 309344848}
   team: 0
@@ -6506,7 +6514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1416410792231269496, guid: 149b70b364be9b64d9e331169f8b5c28, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -27.42
+      value: -30.03
       objectReference: {fileID: 0}
     - target: {fileID: 1416410792231269496, guid: 149b70b364be9b64d9e331169f8b5c28, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7566,6 +7574,7 @@ MonoBehaviour:
   prefabToSpawn: {fileID: 246966201}
   cooldownTime: 3
   cooldownCircle: {fileID: 192839643}
+  gameManager: {fileID: 0}
 --- !u!114 &1600859600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9199,6 +9208,7 @@ MonoBehaviour:
   prefabToSpawn: {fileID: 617150944}
   cooldownTime: 3
   cooldownCircle: {fileID: 1538095881}
+  gameManager: {fileID: 0}
 --- !u!1001 &8535001093800676153
 PrefabInstance:
   m_ObjectHideFlags: 0
