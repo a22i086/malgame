@@ -12,7 +12,7 @@ public class Horse : Character, IHealth
     {
         base.Awake();
         health = 150f;
-        speed = 12f;
+        speed = 30f;
         attackPower = 20f;
         attackRange = 10f;
         attackCooldown = 2.0f;

@@ -17,6 +17,7 @@ public abstract class Character : MonoBehaviour, ICharacter
     public GameManager gameManager;
 
     public int team;
+    public bool isPlayerControlled; //敵動物かどうか
 
     protected virtual void Awake()
     {

@@ -74,10 +74,15 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         if (spawnedObject != null)
         {
-            // プレハブの位置を更新
-            Vector3 newPosition = GetWorldPosition(eventData);
-            newPosition.y = fixedY; // Y座標を固定
-            spawnedObject.transform.position = newPosition;
+            Character animalCharacter = spawnedObject.GetComponent<Character>();
+            if (animalCharacter.isPlayerControlled)
+            {
+                // プレハブの位置を更新
+                Vector3 newPosition = GetWorldPosition(eventData);
+                newPosition.y = fixedY; // Y座標を固定
+                spawnedObject.transform.position = newPosition;
+            }
+
         }
     }
 
@@ -85,30 +90,35 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         if (spawnedObject != null)
         {
-            // ドラッグが終了した位置にプレハブを確定させる
-            Vector3 finalPosition = GetWorldPosition(eventData);
-            finalPosition.y = fixedY; // Y座標を固定
-            spawnedObject.transform.position = finalPosition;
-
-            // Rigidbodyを有効化
-            if (rb != null)
+            Character animalCharacter = spawnedObject.GetComponent<Character>();
+            if (animalCharacter.isPlayerControlled)
             {
-                rb.isKinematic = false;
-            }
+                // ドラッグが終了した位置にプレハブを確定させる
+                Vector3 finalPosition = GetWorldPosition(eventData);
+                finalPosition.y = fixedY; // Y座標を固定
+                spawnedObject.transform.position = finalPosition;
 
-            spawnedObject = null;
-            Debug.Log($"Spawned {prefabToSpawn.name} at {finalPosition}");
-            lastSpawnTime = Time.time;
-            //動物を置いたらCT開始
-            if (cooldownCircle != null)
-            {
-                Image cooldownImage = cooldownCircle.GetComponent<Image>();
-                if (cooldownImage != null)
+                // Rigidbodyを有効化
+                if (rb != null)
                 {
-                    cooldownImage.fillAmount = 0f;
+                    rb.isKinematic = false;
                 }
-                cooldownCircle.SetActive(true);
+
+                spawnedObject = null;
+                Debug.Log($"Spawned {prefabToSpawn.name} at {finalPosition}");
+                lastSpawnTime = Time.time;
+                //動物を置いたらCT開始
+                if (cooldownCircle != null)
+                {
+                    Image cooldownImage = cooldownCircle.GetComponent<Image>();
+                    if (cooldownImage != null)
+                    {
+                        cooldownImage.fillAmount = 0f;
+                    }
+                    cooldownCircle.SetActive(true);
+                }
             }
+
         }
     }
 

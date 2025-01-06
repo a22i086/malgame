@@ -32,6 +32,7 @@ public class BotController : MonoBehaviour
         GameObject animalInstance = Instantiate(selectedAnimalPrefab, spawnPoint.position, Quaternion.identity);
         Character animalCharacter = animalInstance.GetComponent<Character>();
         animalCharacter.team = 1;
+        animalCharacter.isPlayerControlled = false;
         gameManager.AddBotAnimal(animalCharacter);
 
         StartCoroutine(MoveAnimalAfterWait(animalCharacter));
