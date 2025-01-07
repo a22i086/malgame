@@ -52,13 +52,14 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+
         if (Time.time >= lastSpawnTime + cooldownTime)
         {
             // プレハブを生成してカーソルに追随させる
             Vector3 spawnPosition = GetWorldPosition(eventData);
             spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
             Character animalCharacter = spawnedObject.GetComponent<Character>();
-
+            animalCharacter.isPlayerControlled = true;
             gameManager.AddPlayerAnimal(animalCharacter);
 
             // Rigidbodyを無効化

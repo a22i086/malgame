@@ -25,6 +25,10 @@ public class AnimalController : MonoBehaviour
         float scaleFactor_z = transform.localScale.z;
 
         selectionCircleInstance.transform.localScale = new Vector3(scaleFactor_x, 0.01f, scaleFactor_z);
+        if (!GetComponent<Character>().isPlayerControlled)
+        {
+            this.enabled = false;
+        }
     }
 
     void Update()

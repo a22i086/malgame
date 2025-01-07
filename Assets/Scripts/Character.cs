@@ -24,7 +24,7 @@ public abstract class Character : MonoBehaviour, ICharacter
         agent = GetComponent<NavMeshAgent>();
         lastAttackTime = -attackCooldown;
         gameManager = FindObjectOfType<GameManager>();
-        Debug.Log("GameManager found: " + (gameManager != null));
+        //Debug.Log("GameManager found: " + (gameManager != null));
     }
 
     protected virtual void Update()
