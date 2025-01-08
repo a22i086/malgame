@@ -67,7 +67,7 @@ public abstract class Character : MonoBehaviour, ICharacter
 
         foreach (Character enemy in enemies)
         {
-            if (enemy != null && enemy.gameObject != null && enemy.team != this.team)
+            if (enemy != null && enemy.gameObject != null && enemy.gameObject.activeInHierarchy && enemy.team != this.team)
             {
                 float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
                 if (distanceToEnemy < shortestDistance)

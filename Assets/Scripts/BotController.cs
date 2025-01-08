@@ -42,7 +42,7 @@ public class BotController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTimeAfterSpawn);
 
-        while (animalCharacter != null && animalCharacter.gameObject.activeInHierarchy)
+        while (animalCharacter != null && animalCharacter.gameObject != null && animalCharacter.gameObject.activeInHierarchy)
         {
             List<Character> enemies = gameManager.GetEnemies(animalCharacter);
             bool enemyInRange = false;

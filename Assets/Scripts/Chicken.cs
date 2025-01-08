@@ -37,7 +37,7 @@ public class Chicken : Character, IHealth
     public override void Attack()
     {
         Debug.Log("Chicken is attacking with power: " + attackPower);
-        if (target != null)
+        if (target != null && target.gameObject != null && target.gameObject.activeInHierarchy)
         {
             IHealth enemyHealth = target.GetComponent<IHealth>();
             if (enemyHealth != null)

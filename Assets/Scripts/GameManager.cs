@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
             enemies.AddRange(playerAnimals);
         }
 
-        List<Character> filteredEnemies = enemies.FindAll(e => e != null && e.gameObject != null
+        List<Character> filteredEnemies = enemies.FindAll(e => e != null && e.gameObject != null && e.gameObject.activeInHierarchy
                                                         && e.team != tower.team);
 
         return filteredEnemies;
