@@ -60,6 +60,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
             Character animalCharacter = spawnedObject.GetComponent<Character>();
             animalCharacter.isPlayerControlled = true;
+            animalCharacter.isSpawnConfirmed = false;
             gameManager.AddPlayerAnimal(animalCharacter);
 
             // Rigidbodyを無効化
@@ -105,6 +106,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                     rb.isKinematic = false;
                 }
 
+                animalCharacter.isSpawnConfirmed = true;
                 spawnedObject = null;
                 Debug.Log($"Spawned {prefabToSpawn.name} at {finalPosition}");
                 lastSpawnTime = Time.time;

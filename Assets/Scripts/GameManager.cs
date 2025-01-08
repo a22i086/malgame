@@ -71,7 +71,8 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Found enemy: " + enemy.name + " (Team: " + enemy.team + ")");
             }
             // チーム番号でフィルタリング
-            List<Character> filteredEnemies = enemies.FindAll(e => e != null && e.gameObject != null && e.team != requester.team);
+            List<Character> filteredEnemies = enemies.FindAll(e => e != null && e.gameObject != null
+                                                                && e.team != requester.team);
             // フィルタリング後の敵リストを表示
             //Debug.Log("After filtering: ");
             foreach (Character enemy in filteredEnemies)
@@ -85,6 +86,25 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Error in GetEnemies" + e.Message);
             return new List<Character>();
         }
+    }
+
+    public List<Character> GetEnemiesForTower(Tower tower)
+    {
+        List<Character> enemies = new List<Character>();
+
+        if (tower.team == 0)
+        {
+            enemies.AddRange(botAnimals);
+        }
+        else if (tower.team == 1)
+        {
+            enemies.AddRange(playerAnimals);
+        }
+
+        List<Character> filteredEnemies = enemies.FindAll(e => e != null && e.gameObject != null
+                                                        && e.team != tower.team);
+
+        return filteredEnemies;
     }
     public void RemoveAnimal(Character animal)
     {

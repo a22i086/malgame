@@ -18,6 +18,7 @@ public abstract class Character : MonoBehaviour, ICharacter
 
     public int team;
     public bool isPlayerControlled; //敵動物かどうか
+    public bool isSpawnConfirmed; // 召喚が確定されたかどうか
 
     protected virtual void Awake()
     {
@@ -29,6 +30,11 @@ public abstract class Character : MonoBehaviour, ICharacter
 
     protected virtual void Update()
     {
+        if (!isSpawnConfirmed)
+        {
+            //召喚が確定されるまでは何もしない
+            return;
+        }
         if (target == null || !target.gameObject.activeInHierarchy)
         {
             FindTarget();

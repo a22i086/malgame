@@ -17,6 +17,7 @@ public class Tower : MonoBehaviour, IHealth
     private float fireCountdown = 0f;
     private Transform target;
     private GameManager gameManager;
+    public int team;
 
     void Start()
     {
@@ -44,13 +45,14 @@ public class Tower : MonoBehaviour, IHealth
         fireCountdown -= Time.deltaTime;
     }
 
-    void FindTarget() //射程圏内からEnemyタグがついてるやつをみつける
+    void FindTarget() //チームが違う動物を見つける
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        // GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        List<Character> enemies = gameManager.GetEnemiesForTower(this);
         float shortestDistance = Mathf.Infinity;
-        GameObject nearestEnemy = null;
+        Character nearestEnemy = null;
 
-        foreach (GameObject enemy in enemies)
+        foreach (Character enemy in enemies)
         {
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
             if (distanceToEnemy < shortestDistance && distanceToEnemy <= range)
