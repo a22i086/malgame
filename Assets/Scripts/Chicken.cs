@@ -9,6 +9,8 @@ public class Chicken : Character, IHealth
     public float Health => healthManager.Health;
     public float MaxHealth => healthManager.MaxHealth;
     private Vector3 initialPosition;
+    // protected bool isDead = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -36,6 +38,7 @@ public class Chicken : Character, IHealth
 
     public override void Attack()
     {
+        if (isDead) return;
         Debug.Log("Chicken is attacking with power: " + attackPower);
         if (target != null && target.gameObject != null && target.gameObject.activeInHierarchy)
         {
@@ -54,8 +57,8 @@ public class Chicken : Character, IHealth
         healthManager.TakeDamage(amount);
         if (healthManager.Health <= 0)
         {
-            gameManager.RemoveAnimal(this);
-            Destroy(gameObject);
+            isDead = true;
+            base.TakeDamage(amount);
         }
     }
 

@@ -47,45 +47,45 @@ public class GameManager : MonoBehaviour
 
     public List<Character> GetEnemies(Character requester)
     {
-        try
+        // try
+        // {
+
+
+        //Debug.Log("GetEnemies called for: " + requester.name);
+
+        List<Character> enemies = new List<Character>();
+
+        if (playerAnimals.Contains(requester))
         {
-
-
-            //Debug.Log("GetEnemies called for: " + requester.name);
-
-            List<Character> enemies = new List<Character>();
-
-            if (playerAnimals.Contains(requester))
-            {
-                enemies.AddRange(botAnimals);
-            }
-            else if (botAnimals.Contains(requester))
-            {
-                enemies.AddRange(playerAnimals);
-            }
-
-            // フィルタリング前の敵リストを表示
-            //Debug.Log("Before filtering: ");
-            foreach (Character enemy in enemies)
-            {
-                Debug.Log("Found enemy: " + enemy.name + " (Team: " + enemy.team + ")");
-            }
-            // チーム番号でフィルタリング
-            List<Character> filteredEnemies = enemies.FindAll(e => e != null && e.gameObject != null
-                                                                && e.team != requester.team);
-            // フィルタリング後の敵リストを表示
-            //Debug.Log("After filtering: ");
-            foreach (Character enemy in filteredEnemies)
-            {
-                Debug.Log("Filtered enemy: " + enemy.name + " (Team: " + enemy.team + ")");
-            }
-            return filteredEnemies;
+            enemies.AddRange(botAnimals);
         }
-        catch (Exception e)
+        else if (botAnimals.Contains(requester))
         {
-            Debug.LogError("Error in GetEnemies" + e.Message);
-            return new List<Character>();
+            enemies.AddRange(playerAnimals);
         }
+
+        // フィルタリング前の敵リストを表示
+        //Debug.Log("Before filtering: ");
+        foreach (Character enemy in enemies)
+        {
+            // Debug.Log("Found enemy: " + enemy.name + " (Team: " + enemy.team + ")");
+        }
+        // チーム番号でフィルタリング
+        List<Character> filteredEnemies = enemies.FindAll(e => e != null && e.gameObject != null
+                                                            && e.team != requester.team);
+        // フィルタリング後の敵リストを表示
+        //Debug.Log("After filtering: ");
+        foreach (Character enemy in filteredEnemies)
+        {
+            //Debug.Log("Filtered enemy: " + enemy.name + " (Team: " + enemy.team + ")");
+        }
+        return filteredEnemies;
+        // }
+        // catch (Exception e)
+        // {
+        //     Debug.LogError("Error in GetEnemies" + e.Message);
+        //     return new List<Character>();
+        // }
     }
 
     public List<Character> GetEnemiesForTower(Tower tower)

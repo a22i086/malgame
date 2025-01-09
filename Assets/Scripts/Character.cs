@@ -19,6 +19,7 @@ public abstract class Character : MonoBehaviour, ICharacter
     public int team;
     public bool isPlayerControlled; //敵動物かどうか
     public bool isSpawnConfirmed; // 召喚が確定されたかどうか
+    protected bool isDead = false;
 
     protected virtual void Awake()
     {
@@ -30,6 +31,7 @@ public abstract class Character : MonoBehaviour, ICharacter
 
     protected virtual void Update()
     {
+        if (isDead) return;
         if (!isSpawnConfirmed)
         {
             //召喚が確定されるまでは何もしない
@@ -108,6 +110,22 @@ public abstract class Character : MonoBehaviour, ICharacter
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
+    }
+
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+        if (health <= 0 && !isDead)
+        {
+            isDead = true;
+            Die();
+        }
+    }
+
+    protected virtual void Die()
+    {
+        gameManager.RemoveAnimal(this);
+        Destroy(gameObject);
     }
     // protected void MoveBackwards()
     // {

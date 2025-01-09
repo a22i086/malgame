@@ -9,6 +9,8 @@ public class Dog : Character, IHealth
     public float Health => healthManager.Health;
     public float MaxHealth => healthManager.MaxHealth;
 
+    // protected bool isDead = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -35,6 +37,7 @@ public class Dog : Character, IHealth
 
     public override void Attack()
     {
+        if (isDead) return;
         Debug.Log("Dog is attacking with power: " + attackPower);
         if (target != null && target.gameObject != null && target.gameObject.activeInHierarchy)
         {
@@ -44,6 +47,11 @@ public class Dog : Character, IHealth
                 enemyHealth.TakeDamage(attackPower);
                 ShowAttackEffect();
             }
+
+            // if (enemyHealth != null && enemyHealth.Health <= 0)
+            // {
+            //     target = null;
+            // }
         }
     }
 
@@ -52,8 +60,8 @@ public class Dog : Character, IHealth
         healthManager.TakeDamage(amount);
         if (healthManager.Health <= 0)
         {
-            gameManager.RemoveAnimal(this);
-            Destroy(gameObject);
+            isDead = true;
+            base.TakeDamage(amount);
         }
     }
 }

@@ -7,6 +7,8 @@ public class Horse : Character, IHealth
     private HealthManager healthManager;
     public float Health => healthManager.Health;
     public float MaxHealth => healthManager.MaxHealth;
+    // protected bool isDead = false;
+
 
     protected override void Awake()
     {
@@ -34,6 +36,7 @@ public class Horse : Character, IHealth
 
     public override void Attack()
     {
+        if (isDead) return;
         Debug.Log("Horse is attacking with power: " + attackPower);
         if (target != null && target.gameObject != null && target.gameObject.activeInHierarchy)
         {
@@ -51,8 +54,8 @@ public class Horse : Character, IHealth
         healthManager.TakeDamage(amount);
         if (healthManager.Health <= 0)
         {
-            gameManager.RemoveAnimal(this);
-            Destroy(gameObject);
+            isDead = true;
+            base.TakeDamage(amount);
         }
     }
 }
