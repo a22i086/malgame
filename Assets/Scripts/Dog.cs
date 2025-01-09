@@ -48,20 +48,20 @@ public class Dog : Character, IHealth
                 ShowAttackEffect();
             }
 
-            // if (enemyHealth != null && enemyHealth.Health <= 0)
-            // {
-            //     target = null;
-            // }
+            if (enemyHealth != null && enemyHealth.Health <= 0)
+            {
+                target = null;
+            }
         }
     }
 
-    public void TakeDamage(float amount)
+    public override void TakeDamage(float amount)
     {
         healthManager.TakeDamage(amount);
         if (healthManager.Health <= 0)
         {
             isDead = true;
-            base.TakeDamage(amount);
+            base.Die();
         }
     }
 }

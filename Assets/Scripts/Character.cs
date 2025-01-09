@@ -26,7 +26,6 @@ public abstract class Character : MonoBehaviour, ICharacter
         agent = GetComponent<NavMeshAgent>();
         lastAttackTime = -attackCooldown;
         gameManager = FindObjectOfType<GameManager>();
-        //Debug.Log("GameManager found: " + (gameManager != null));
     }
 
     protected virtual void Update()
@@ -112,7 +111,7 @@ public abstract class Character : MonoBehaviour, ICharacter
         target = newTarget;
     }
 
-    public void TakeDamage(float amount)
+    public virtual void TakeDamage(float amount)
     {
         health -= amount;
         if (health <= 0 && !isDead)
