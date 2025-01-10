@@ -64,7 +64,7 @@ public abstract class Character : MonoBehaviour, ICharacter
         List<Character> enemies = gameManager.GetEnemies(this);
 
         float shortestDistance = Mathf.Infinity;
-        Character nearestEnemy = null;
+        Transform nearestEnemy = null;
 
         foreach (Character enemy in enemies)
         {
@@ -74,10 +74,28 @@ public abstract class Character : MonoBehaviour, ICharacter
                 if (distanceToEnemy < shortestDistance)
                 {
                     shortestDistance = distanceToEnemy;
-                    nearestEnemy = enemy;
+                    nearestEnemy = enemy.transform;
                 }
             }
 
+        }
+        string targetTag = team == 0 ? "EnemyTower" : "PlayerTower";
+        GameObject[] enemyTowers = GameObject.FindGameObjectsWithTag(targetTag);
+        foreach (GameObject tower in enemyTowers)
+        {
+            if (tower != null && tower.activeInHierarchy)
+            {
+                Tower towerComponent = tower.GetComponent<Tower>();
+                if (towerComponent != null && towerComponent.team != this.team)
+                {
+                    float distanceToTower = Vector3.Distance(transform.position, tower.transform.position);
+                    if (distanceToTower < shortestDistance)
+                    {
+                        shortestDistance = distanceToTower;
+                        nearestEnemy = tower.transform;
+                    }
+                }
+            }
         }
 
         if (nearestEnemy != null)

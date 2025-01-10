@@ -59,6 +59,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             Vector3 spawnPosition = GetWorldPosition(eventData);
             spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
             Character animalCharacter = spawnedObject.GetComponent<Character>();
+            animalCharacter.team = 0;
             animalCharacter.isPlayerControlled = true;
             animalCharacter.isSpawnConfirmed = false;
             gameManager.AddPlayerAnimal(animalCharacter);
