@@ -120,7 +120,8 @@ public abstract class Character : MonoBehaviour, ICharacter
     {
         if (attackEffectPrefab != null && target != null)
         {
-            Instantiate(attackEffectPrefab, target.position, Quaternion.identity);
+            GameObject attackEffect = Instantiate(attackEffectPrefab, target.position, Quaternion.identity);
+            Destroy(attackEffect, 3.0f);
         }
     }
 

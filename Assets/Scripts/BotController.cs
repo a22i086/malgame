@@ -10,10 +10,12 @@ public class BotController : MonoBehaviour
     public float waitTimeAfterSpawn = 2f;
     private float spawnTimer = 0f;
     public GameManager gameManager; // ゲームマネージャーへの参照
+    public EnemyAlert enemyAlert; // アラートアイコンの表示
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        enemyAlert = FindObjectOfType<EnemyAlert>();
     }
 
     void Update()
@@ -37,6 +39,11 @@ public class BotController : MonoBehaviour
         animalCharacter.isPlayerControlled = false;
         animalCharacter.isSpawnConfirmed = true;
         gameManager.AddBotAnimal(animalCharacter);
+
+        if (enemyAlert != null)
+        {
+            enemyAlert.AddEnemy(animalInstance.transform);
+        }
 
         StartCoroutine(MoveAnimalAfterWait(animalCharacter));
     }

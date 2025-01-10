@@ -27,7 +27,11 @@ public class HealthManager : MonoBehaviour, IHealth
     private void Die()
     {
         Debug.Log($"{gameObject.name} died!");
-        if (CompareTag("Tower") && gameManager != null)
+        if (CompareTag("EnemyTower") && gameManager != null)
+        {
+            Debug.Log("Win!!!");
+        }
+        if (CompareTag("PlayerTower") && gameManager != null)
         {
             gameManager.Game_Over();
         }

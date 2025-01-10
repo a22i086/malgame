@@ -8,7 +8,6 @@ public class EnemyAlert : MonoBehaviour
     public Camera mainCamera; // メインカメラ
     public List<Transform> enemies; // 監視する敵のリスト
     public Canvas uiCanvas; // UI Canvas への参照
-
     private List<GameObject> alertIcons; // ビックリマークのインスタンスリスト
 
     void Start()
@@ -16,10 +15,7 @@ public class EnemyAlert : MonoBehaviour
         alertIcons = new List<GameObject>();
         foreach (Transform enemy in enemies)
         {
-            GameObject alertIcon = Instantiate(alertIconPrefab, uiCanvas.transform);
-            alertIcon.SetActive(false);
-            alertIcons.Add(alertIcon);
-            // Debug.Log($"Created alert icon for {enemy.name}");
+            AddEnemy(enemy);
         }
     }
 
@@ -56,5 +52,13 @@ public class EnemyAlert : MonoBehaviour
     {
         //viewportPositionのx座標やy座標が０未満または１を超える場合は画面外とみなす
         return viewportPosition.x < 0 || viewportPosition.x > 1 || viewportPosition.y < 0 || viewportPosition.y > 1;
+    }
+
+    public void AddEnemy(Transform enemy)
+    {
+        enemies.Add(enemy);
+        GameObject alertIcon = Instantiate(alertIconPrefab, uiCanvas.transform);
+        alertIcon.SetActive(false);
+        alertIcons.Add(alertIcon);
     }
 }
