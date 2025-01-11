@@ -393,7 +393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6036331658564139559, guid: adb11d902b2436d428d60c75729665a6, type: 3}
       propertyPath: m_Name
-      value: Dog_001
+      value: Dog_001 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6036331658564139559, guid: adb11d902b2436d428d60c75729665a6, type: 3}
       propertyPath: m_Layer

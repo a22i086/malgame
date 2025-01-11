@@ -121,6 +121,12 @@ public abstract class Character : MonoBehaviour, ICharacter
         if (attackEffectPrefab != null && target != null)
         {
             GameObject attackEffect = Instantiate(attackEffectPrefab, target.position, Quaternion.identity);
+            Renderer renderer = attackEffect.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.sortingLayerName = "AttackEffect";
+                renderer.sortingOrder = 100;
+            }
             Destroy(attackEffect, 3.0f);
         }
     }

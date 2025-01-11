@@ -25,26 +25,30 @@ public class EnemyAlert : MonoBehaviour
         {
             Transform enemy = enemies[i];
             GameObject alertIcon = alertIcons[i];
-            Vector3 viewportPosition = mainCamera.WorldToViewportPoint(enemy.position);
-
-            if (IsOutOfViewport(viewportPosition))
+            if (enemy != null)
             {
-                Vector3 screenPosition = mainCamera.WorldToScreenPoint(enemy.position);
+                Vector3 viewportPosition = mainCamera.WorldToViewportPoint(enemy.position);
 
-                // スクリーンの範囲内に制限
-                screenPosition.x = Mathf.Clamp(screenPosition.x, 50, Screen.width - 50);
-                screenPosition.y = Mathf.Clamp(screenPosition.y, 50, Screen.height - 50);
+                if (IsOutOfViewport(viewportPosition))
+                {
+                    Vector3 screenPosition = mainCamera.WorldToScreenPoint(enemy.position);
 
-                RectTransform rectTransform = alertIcon.GetComponent<RectTransform>();
-                rectTransform.position = screenPosition;
+                    // スクリーンの範囲内に制限
+                    screenPosition.x = Mathf.Clamp(screenPosition.x, 50, Screen.width - 50);
+                    screenPosition.y = Mathf.Clamp(screenPosition.y, 50, Screen.height - 50);
 
-                alertIcon.SetActive(true);
-                // Debug.Log($"Showing alert icon at {screenPosition} for {enemy.name}");
+                    RectTransform rectTransform = alertIcon.GetComponent<RectTransform>();
+                    rectTransform.position = screenPosition;
+
+                    alertIcon.SetActive(true);
+                    // Debug.Log($"Showing alert icon at {screenPosition} for {enemy.name}");
+                }
+                else
+                {
+                    alertIcon.SetActive(false);
+                }
             }
-            else
-            {
-                alertIcon.SetActive(false);
-            }
+
         }
     }
 
