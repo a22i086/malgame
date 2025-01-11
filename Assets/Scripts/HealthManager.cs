@@ -29,7 +29,7 @@ public class HealthManager : MonoBehaviour, IHealth
         Debug.Log($"{gameObject.name} died!");
         if (CompareTag("EnemyTower") && gameManager != null)
         {
-            Debug.Log("Win!!!");
+            gameManager.Game_Win();
         }
         if (CompareTag("PlayerTower") && gameManager != null)
         {

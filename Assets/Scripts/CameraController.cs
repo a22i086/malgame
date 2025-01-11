@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
 
         if (Input.GetMouseButton(1)) // 右クリックを押している間
         {
-            float move = panSpeed * Time.deltaTime;
+            float move = panSpeed * 0.01f;
 
             // Z方向にパン
             if (Input.GetAxis("Mouse Y") < 0) // 前

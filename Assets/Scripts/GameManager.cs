@@ -6,12 +6,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverCanvas;
+    public GameObject gameWinCanvas;
     private List<Character> playerAnimals = new List<Character>();
     private List<Character> botAnimals = new List<Character>();
     // Start is called before the first frame update
     void Start()
     {
         gameOverCanvas.SetActive(false);
+        gameWinCanvas.SetActive(false);
     }
     void Update()
     {
@@ -117,9 +119,29 @@ public class GameManager : MonoBehaviour
             botAnimals.Remove(animal);
         }
     }
+    public void Game_Win()
+    {
+        gameWinCanvas.SetActive(true);
+        StartCoroutine(StopGameAfterAnimation());
+    }
     public void Game_Over()
     {
         gameOverCanvas.SetActive(true);
+        StartCoroutine(StopGameAfterAnimation());
+    }
+
+    private IEnumerator StopGameAfterAnimation()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Time.timeScale = 0;
+    }
+
+    public void RestartGame()
+    {
+        gameOverCanvas.SetActive(false);
+        gameWinCanvas.SetActive(false);
+
+        Time.timeScale = 1;
     }
 
     // internal void AddBotAnimal(AnimalController animalController)
