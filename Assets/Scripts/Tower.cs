@@ -10,6 +10,7 @@ public class Tower : MonoBehaviour, IHealth
     public float Health => healthManager.Health;
     public float MaxHealth => healthManager.MaxHealth;
     public GameObject BulletPrefab; // 発射するプロジェクトタイル
+    public Transform firePoint; // 発射位置
     public Renderer towerRenderer;
     private Color originalColor; // Towerの元となる色
     public float transparency = 0.5f; // Towerの透明度
@@ -27,6 +28,10 @@ public class Tower : MonoBehaviour, IHealth
         }
         originalColor = towerRenderer.material.color;
         gameManager = FindObjectOfType<GameManager>(); //ゲームマネージャーをシーンから見つけて取得
+
+        // Vector3 firePointPosition = firePoint.position;
+        // firePointPosition.y += 1.0f;
+        // firePoint.position = firePointPosition;
 
     }
     void Awake()
@@ -75,7 +80,7 @@ public class Tower : MonoBehaviour, IHealth
 
     void Shoot()
     {
-        GameObject projectileGO = (GameObject)Instantiate(BulletPrefab, transform.position, transform.rotation);
+        GameObject projectileGO = (GameObject)Instantiate(BulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = projectileGO.GetComponent<Bullet>();
 
         if (bullet != null)
@@ -98,7 +103,7 @@ public class Tower : MonoBehaviour, IHealth
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
+        Gizmos.DrawWireSphere(firePoint.position, range);
     }
     public void TakeDamage(float amount)
     {
