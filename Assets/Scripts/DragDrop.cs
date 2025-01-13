@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,10 +14,19 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private Rigidbody rb; // Rigidbody参照
     private float fixedY = 0.5f; // 固定するY座標
     public GameObject cooldownCircle; // GameObject に変更
+    public GameObject SpawnRangeLimit;
     public GameManager gameManager; // ゲームマネージャーへの参照
+    public float spawnRange = 5f;
+
+    // ステージの境界を定義
+    public Vector3 stageMinBounds = new Vector3(-7f, -2f, -52f); // 召喚できる最小
+    public Vector3 stageMaxBounds = new Vector3(13f, 10f, -25f); // 召喚できる最大
+    public Camera mainCamera;
+
 
     void Awake()
     {
+        SpawnRangeLimit.SetActive(false);
         canvas = GetComponentInParent<Canvas>();
         lastSpawnTime = -cooldownTime;
         gameManager = FindObjectOfType<GameManager>();
@@ -57,19 +67,30 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             // プレハブを生成してカーソルに追随させる
             Vector3 spawnPosition = GetWorldPosition(eventData);
-            spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
-            Character animalCharacter = spawnedObject.GetComponent<Character>();
-            animalCharacter.team = 0;
-            animalCharacter.isPlayerControlled = true;
-            animalCharacter.isSpawnConfirmed = false;
-            gameManager.AddPlayerAnimal(animalCharacter);
-
-            // Rigidbodyを無効化
-            rb = spawnedObject.GetComponent<Rigidbody>();
-            if (rb != null)
+            spawnPosition = ClampToSpawnRange(spawnPosition);
+            if (IsInView(spawnPosition))
             {
-                rb.isKinematic = true;
+                spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
+                Character animalCharacter = spawnedObject.GetComponent<Character>();
+                animalCharacter.team = 0;
+                animalCharacter.isPlayerControlled = true;
+                animalCharacter.isSpawnConfirmed = false;
+                gameManager.AddPlayerAnimal(animalCharacter);
+
+                // Rigidbodyを無効化
+                rb = spawnedObject.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.isKinematic = true;
+                }
             }
+
+            else
+            {
+                Debug.Log("Spawn position is out of camera view");
+                StartCoroutine(ClosedErrorMS());
+            }
+
         }
     }
 
@@ -83,7 +104,15 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                 // プレハブの位置を更新
                 Vector3 newPosition = GetWorldPosition(eventData);
                 newPosition.y = fixedY; // Y座標を固定
-                spawnedObject.transform.position = newPosition;
+                newPosition = ClampToSpawnRange(newPosition);
+                if (IsInView(newPosition))
+                {
+                    spawnedObject.transform.position = newPosition;
+                }
+                else
+                {
+                    Debug.Log("Drag position is out of camera view");
+                }
             }
 
         }
@@ -99,6 +128,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                 // ドラッグが終了した位置にプレハブを確定させる
                 Vector3 finalPosition = GetWorldPosition(eventData);
                 finalPosition.y = fixedY; // Y座標を固定
+                finalPosition = ClampToSpawnRange(finalPosition);
                 spawnedObject.transform.position = finalPosition;
 
                 // Rigidbodyを有効化
@@ -111,6 +141,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                 spawnedObject = null;
                 Debug.Log($"Spawned {prefabToSpawn.name} at {finalPosition}");
                 lastSpawnTime = Time.time;
+                SpawnRangeLimit.SetActive(false);
                 //動物を置いたらCT開始
                 if (cooldownCircle != null)
                 {
@@ -139,5 +170,32 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         Vector3 defaultPosition = Camera.main.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, Camera.main.transform.position.y - fixedY));
         defaultPosition.y = fixedY; // Y座標を固定
         return defaultPosition;
+    }
+
+    private Vector3 ClampToSpawnRange(Vector3 position)
+    {
+        position.x = Mathf.Clamp(position.x, stageMinBounds.x, stageMaxBounds.x);
+        position.z = Mathf.Clamp(position.z, stageMinBounds.z, stageMaxBounds.z);
+
+        return position;
+    }
+
+    private bool IsInView(Vector3 position)
+    {
+        Vector3 viewportPosition = mainCamera.WorldToViewportPoint(position);
+        return viewportPosition.x >= 0 && viewportPosition.x <= 1 && viewportPosition.y >= 0 && viewportPosition.y <= 1;
+    }
+
+    private IEnumerator ClosedErrorMS()
+    {
+        SpawnRangeLimit.SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+        SpawnRangeLimit.SetActive(false);
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube((stageMinBounds + stageMaxBounds) / 2, new Vector3(stageMaxBounds.x - stageMinBounds.x, 0, stageMaxBounds.z - stageMinBounds.z));
     }
 }
