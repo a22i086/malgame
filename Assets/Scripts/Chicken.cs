@@ -15,7 +15,7 @@ public class Chicken : Character, IHealth
     {
         base.Awake();
         health = 75f;
-        speed = 7f;
+        speed = 30f;
         attackPower = 10f;
         attackRange = 5f;
         attackCooldown = 2.0f;

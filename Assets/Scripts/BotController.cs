@@ -56,11 +56,18 @@ public class BotController : MonoBehaviour
         {
             List<Character> enemies = gameManager.GetEnemies(animalCharacter);
             bool enemyInRange = false;
+            Character nearestEnemy = null;
+            float shortestDistance = Mathf.Infinity;
 
             foreach (Character enemy in enemies)
             {
                 float distanceToEnemy = Vector3.Distance(animalCharacter.transform.position,
                                                             enemy.transform.position);
+                if (distanceToEnemy < shortestDistance)
+                {
+                    shortestDistance = distanceToEnemy;
+                    nearestEnemy = enemy;
+                }
                 if (distanceToEnemy <= animalCharacter.attackRange)
                 {
                     enemyInRange = true;
