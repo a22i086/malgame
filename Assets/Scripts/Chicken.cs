@@ -39,6 +39,7 @@ public class Chicken : Character, IHealth
     public override void Attack()
     {
         if (isDead) return;
+        agent.isStopped = true;
         Debug.Log("Chicken is attacking with power: " + attackPower);
         if (target != null && target.gameObject != null && target.gameObject.activeInHierarchy)
         {
@@ -54,6 +55,9 @@ public class Chicken : Character, IHealth
                 target = null;
             }
         }
+        agent.ResetPath();
+        agent.velocity = Vector3.zero;
+        agent.isStopped = false;
     }
 
 

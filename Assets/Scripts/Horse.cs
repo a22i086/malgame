@@ -37,6 +37,7 @@ public class Horse : Character, IHealth
     public override void Attack()
     {
         if (isDead) return;
+        agent.isStopped = true;
         Debug.Log("Horse is attacking with power: " + attackPower);
         if (target != null && target.gameObject != null && target.gameObject.activeInHierarchy)
         {
@@ -52,6 +53,9 @@ public class Horse : Character, IHealth
                 target = null;
             }
         }
+        agent.ResetPath();
+        agent.velocity = Vector3.zero;
+        agent.isStopped = false;
     }
 
     public override void TakeDamage(float amount)

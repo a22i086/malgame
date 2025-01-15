@@ -62,6 +62,7 @@ public class Dog : Character, IHealth
     {
         if (isDead) return;
         // animator.SetBool("isWalking", false);
+        agent.isStopped = true;
         animator.SetBool("isBarking", true);
         Debug.Log("Dog is attacking with power: " + attackPower);
         if (target != null && target.gameObject != null && target.gameObject.activeInHierarchy)
@@ -78,6 +79,9 @@ public class Dog : Character, IHealth
                 target = null;
             }
         }
+        agent.ResetPath();
+        agent.velocity = Vector3.zero;
+        agent.isStopped = false;
     }
 
     public override void TakeDamage(float amount)
