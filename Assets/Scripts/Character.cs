@@ -15,6 +15,7 @@ public abstract class Character : MonoBehaviour, ICharacter
     protected Transform target;
     public GameObject attackEffectPrefab;
     public GameManager gameManager;
+    protected Animator animator;
 
     public int team;
     public bool isPlayerControlled; //敵動物かどうか
@@ -24,6 +25,7 @@ public abstract class Character : MonoBehaviour, ICharacter
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
         lastAttackTime = -attackCooldown;
         gameManager = FindObjectOfType<GameManager>();
     }
@@ -142,19 +144,20 @@ public abstract class Character : MonoBehaviour, ICharacter
         if (health <= 0 && !isDead)
         {
             isDead = true;
-            Die();
+            StartCoroutine(Die());
         }
     }
 
-    protected virtual void Die()
+    protected virtual IEnumerator Die()
     {
+        // animator.SetBool("isAttacking", false);
+        // animator.SetBool("isRunning", false);
+        // animator.SetBool("Idle", false);
+        animator.SetBool("isDead", true);
+        agent.isStopped = true;
+
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         gameManager.RemoveAnimal(this);
         Destroy(gameObject);
     }
-    // protected void MoveBackwards()
-    // {
-    //     Vector3 directionToMoveBackwards = -transform.forward * 1.0f;
-    //     Vector3 newPosition = transform.position + directionToMoveBackwards;
-    //     agent.SetDestination(newPosition);
-    // }
 }

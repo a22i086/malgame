@@ -726,7 +726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   attackRange: 0
-  attackEffectPrefab: {fileID: 0}
+  attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
   gameManager: {fileID: 0}
   team: 0
   isPlayerControlled: 0

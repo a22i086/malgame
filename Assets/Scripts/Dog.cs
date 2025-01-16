@@ -9,7 +9,7 @@ public class Dog : Character, IHealth
     private HealthManager healthManager;
     public float Health => healthManager.Health;
     public float MaxHealth => healthManager.MaxHealth;
-    public Animator animator;
+    //public Animator animator;
 
     // protected bool isDead = false;
 

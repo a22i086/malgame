@@ -1178,7 +1178,7 @@ RectTransform:
   m_GameObject: {fileID: 167081257}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.52421874, y: 0.52421874, z: 0.52421874}
+  m_LocalScale: {x: 0.4765625, y: 0.4765625, z: 0.4765625}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1319035031}
@@ -1190,7 +1190,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 720, y: 1280}
+  m_SizeDelta: {x: 719.99994, y: 1279.9999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &167081259
 MonoBehaviour:
@@ -4798,9 +4798,9 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.0739983
+    x: 0.112725735
     y: 0
-    width: 0.8520034
+    width: 0.77454853
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -6094,7 +6094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalPrefabs:
   - {fileID: 1975505327361874111, guid: 7e65553da118d254a8d10998f8fe38fd, type: 3}
-  - {fileID: 7327432635741977073, guid: 9dbb8f2e5aefcd749b130193f58814a6, type: 3}
+  - {fileID: 6693446660304626412, guid: 43bd1953f3878c1469dce88d0eb04c11, type: 3}
   - {fileID: 8266727226499383110, guid: b3ad0fc931737d4458479f61664ef053, type: 3}
   spawnPoint: {fileID: 1307034180}
   spawnInterval: 5
@@ -8998,7 +8998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6243f6597e18f0b47b4306a31c4d1872, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 7327432635741977073, guid: 9dbb8f2e5aefcd749b130193f58814a6, type: 3}
+  prefabToSpawn: {fileID: 6693446660304626412, guid: 43bd1953f3878c1469dce88d0eb04c11, type: 3}
   cooldownTime: 3
   cooldownCircle: {fileID: 1538095881}
   SpawnRangeLimit: {fileID: 961788349}
