@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,17 +21,46 @@ public class Chicken : Character, IHealth
         attackRange = 5f;
         attackCooldown = 2.0f;
         agent.speed = speed;
-        agent.updatePosition = false; // NavMeshAgentの高さ制御を無効化
+        agent.updatePosition = true; // NavMeshAgentの高さ制御を無効化
         lastAttackTime = -attackCooldown;
         healthManager = GetComponent<HealthManager>();
+        initialPosition = new Vector3(transform.position.x, 5.0f, transform.position.z);
     }
     protected override void Update()
     {
         base.Update();
+        if (target != null)
+        {
+            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+            if (distanceToTarget <= attackRange)
+            {
+                animator.SetBool("isFlying", false);
+            }
+            else
+            {
+                animator.SetBool("isFlying", true);
+                animator.SetBool("isAttacking", false);
+                // animator.SetBool("isWalking", false);
+            }
+        }
+        else
+        {
+            animator.SetBool("isFlying", false);
+        }
+
+        Vector3 position = transform.position;
+        position.y = initialPosition.y;
+        transform.position = position;
+
+        // if (isPlayerControlled)
+        // {
+        //     agent.nextPosition = transform.position;
+        // }
     }
 
     public override void Move(Vector3 targetPosition)
     {
+        animator.SetBool("isAttacking", false);
         Vector3 fixedPosition = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
         agent.SetDestination(fixedPosition);
         StartCoroutine(UpdatePosition());
@@ -40,6 +70,7 @@ public class Chicken : Character, IHealth
     {
         if (isDead) return;
         agent.isStopped = true;
+        animator.SetBool("isAttacking", true);
         Debug.Log("Chicken is attacking with power: " + attackPower);
         if (target != null && target.gameObject != null && target.gameObject.activeInHierarchy)
         {

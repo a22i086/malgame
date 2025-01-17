@@ -11,6 +11,7 @@ public abstract class Character : MonoBehaviour, ICharacter
     public float attackRange;
     protected float attackCooldown;
     protected float lastAttackTime;
+    private float Difference2Enemy = 5.0f;
     protected NavMeshAgent agent;
     protected Transform target;
     public GameObject attackEffectPrefab;
@@ -57,6 +58,17 @@ public abstract class Character : MonoBehaviour, ICharacter
     public abstract void Move(Vector3 targetPosition);
     public abstract void Attack();
 
+    protected virtual bool CanSeeTarget(Transform potentialTarget)
+    {
+        float heightDifference = Mathf.Abs(transform.position.y - potentialTarget.transform.position.y);
+        if (heightDifference > Difference2Enemy)
+        {
+            return false;
+        }
+        else
+            return true;
+    }
+
     protected void FindTarget()
     {
         // GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -72,6 +84,7 @@ public abstract class Character : MonoBehaviour, ICharacter
         {
             if (enemy != null && enemy.gameObject != null && enemy.gameObject.activeInHierarchy && enemy.team != this.team)
             {
+                if (!CanSeeTarget(enemy.transform)) continue;
                 float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
                 if (distanceToEnemy < shortestDistance)
                 {

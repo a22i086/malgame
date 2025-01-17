@@ -829,6 +829,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aee731a00031fcc4d9d2b075e528e050, type: 3}
+--- !u!1 &111606446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 111606447}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &111606447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111606446}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.00076, z: 0.00088}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1307034180}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &114823683 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 448686, guid: 8a7cf5ac7b4145441a3dca86f869b09e, type: 3}
@@ -6095,8 +6126,8 @@ MonoBehaviour:
   animalPrefabs:
   - {fileID: 1975505327361874111, guid: 7e65553da118d254a8d10998f8fe38fd, type: 3}
   - {fileID: 6693446660304626412, guid: 43bd1953f3878c1469dce88d0eb04c11, type: 3}
-  - {fileID: 8266727226499383110, guid: b3ad0fc931737d4458479f61664ef053, type: 3}
-  spawnPoint: {fileID: 1307034180}
+  - {fileID: 2684139197734781563, guid: e550214e64f51d84194f71d489956d78, type: 3}
+  spawnPoint: {fileID: 111606447}
   spawnInterval: 5
   waitTimeAfterSpawn: 2
   gameManager: {fileID: 0}
@@ -7352,7 +7383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6243f6597e18f0b47b4306a31c4d1872, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 8266727226499383110, guid: b3ad0fc931737d4458479f61664ef053, type: 3}
+  prefabToSpawn: {fileID: 2684139197734781563, guid: e550214e64f51d84194f71d489956d78, type: 3}
   cooldownTime: 3
   cooldownCircle: {fileID: 192839643}
   SpawnRangeLimit: {fileID: 961788349}
