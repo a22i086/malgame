@@ -631,15 +631,18 @@ PrefabInstance:
       propertyPath: m_AngularSpeed
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 195483596070128140, guid: 2724ea9d48f53a64299a8e5616a496c8, type: 3}
+      propertyPath: m_WalkableMask
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 195483596070128140, guid: 2724ea9d48f53a64299a8e5616a496c8, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114925849592729484, guid: 2724ea9d48f53a64299a8e5616a496c8, type: 3}
     - {fileID: 143591485400823736, guid: 2724ea9d48f53a64299a8e5616a496c8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2724ea9d48f53a64299a8e5616a496c8, type: 3}
---- !u!95 &1891446500356258319 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 95057221291315412, guid: 2724ea9d48f53a64299a8e5616a496c8, type: 3}
-  m_PrefabInstance: {fileID: 1976643284042541787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1972867816328589579 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4356589810392016, guid: 2724ea9d48f53a64299a8e5616a496c8, type: 3}
@@ -726,9 +729,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   attackRange: 0
+  agent: {fileID: 0}
   attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
   gameManager: {fileID: 0}
   team: 0
   isPlayerControlled: 0
   isSpawnConfirmed: 0
-  animator: {fileID: 1891446500356258319}

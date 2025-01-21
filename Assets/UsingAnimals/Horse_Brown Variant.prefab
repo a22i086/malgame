@@ -543,6 +543,18 @@ PrefabInstance:
       propertyPath: m_AgentTypeID
       value: 1479372276
       objectReference: {fileID: 0}
+    - target: {fileID: 5568979789267208044, guid: ea1de200ad74a4cf1b54c8d73aafeab1, type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5568979789267208044, guid: ea1de200ad74a4cf1b54c8d73aafeab1, type: 3}
+      propertyPath: m_WalkableMask
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5568979789267208044, guid: ea1de200ad74a4cf1b54c8d73aafeab1, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5757828358492880710, guid: ea1de200ad74a4cf1b54c8d73aafeab1, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -569,7 +581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6481239469565288174, guid: ea1de200ad74a4cf1b54c8d73aafeab1, type: 3}
       propertyPath: m_Name
-      value: Horse_Brown
+      value: Horse_Brown Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6481239469565288174, guid: ea1de200ad74a4cf1b54c8d73aafeab1, type: 3}
       propertyPath: m_Layer
@@ -627,6 +639,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8340272362298056817, guid: ea1de200ad74a4cf1b54c8d73aafeab1, type: 3}
+      propertyPath: m_UpdateMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340272362298056817, guid: ea1de200ad74a4cf1b54c8d73aafeab1, type: 3}
+      propertyPath: m_CullingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8351476030500645624, guid: ea1de200ad74a4cf1b54c8d73aafeab1, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -673,7 +693,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6481239469565288174, guid: ea1de200ad74a4cf1b54c8d73aafeab1, type: 3}
   m_PrefabInstance: {fileID: 365383877781715970}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &1363611792
+--- !u!54 &4771899930538181575
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -717,6 +737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   attackRange: 0
+  agent: {fileID: 0}
   attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
   gameManager: {fileID: 0}
   team: 0

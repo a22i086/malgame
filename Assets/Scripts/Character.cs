@@ -12,7 +12,7 @@ public abstract class Character : MonoBehaviour, ICharacter
     protected float attackCooldown;
     protected float lastAttackTime;
     private float Difference2Enemy = 5.0f;
-    protected NavMeshAgent agent;
+    public NavMeshAgent agent;
     protected Transform target;
     public GameObject attackEffectPrefab;
     public GameManager gameManager;
