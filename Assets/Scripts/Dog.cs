@@ -64,7 +64,7 @@ public class Dog : Character, IHealth
         // animator.SetBool("isWalking", false);
         // agent.isStopped = true;
         animator.SetBool("isBarking", true);
-        Debug.Log("Dog is attacking with power: " + attackPower);
+        Debug.Log("Dog is attacking with power: " + attackPower + target);
         if (target != null && target.gameObject != null && target.gameObject.activeInHierarchy)
         {
             IHealth enemyHealth = target.GetComponent<IHealth>();
@@ -79,9 +79,11 @@ public class Dog : Character, IHealth
                 target = null;
             }
         }
+
+        //ここの下の三つでピタッと止まるようにしている
         agent.ResetPath();
         agent.velocity = Vector3.zero;
-        // agent.isStopped = false;
+        agent.isStopped = false;
     }
 
     public override void TakeDamage(float amount)

@@ -77,6 +77,7 @@ public class Horse : Character, IHealth
                 target = null;
             }
         }
+        //ここの下の三つでピタッと止まるようにしている
         agent.ResetPath();
         agent.velocity = Vector3.zero;
         agent.isStopped = false;
