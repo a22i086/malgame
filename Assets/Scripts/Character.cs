@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,12 +12,14 @@ public abstract class Character : MonoBehaviour, ICharacter
     public float attackRange;
     protected float attackCooldown;
     protected float lastAttackTime;
-    private float Difference2Enemy = 5.0f;
+    //private float Difference2Enemy = 3.0f;
     public NavMeshAgent agent;
     protected Transform target;
     public GameObject attackEffectPrefab;
     public GameManager gameManager;
     protected Animator animator;
+
+    private float agentHeight;
 
     public int team;
     public bool isPlayerControlled; //敵動物かどうか
@@ -29,6 +32,11 @@ public abstract class Character : MonoBehaviour, ICharacter
         animator = GetComponent<Animator>();
         lastAttackTime = -attackCooldown;
         gameManager = FindObjectOfType<GameManager>();
+
+        var agentTypeId = agent.agentTypeID;
+        var settings = NavMesh.GetSettingsByID(agentTypeId);
+        agentHeight = settings.agentHeight;
+
     }
 
     protected virtual void Update()
@@ -51,7 +59,23 @@ public abstract class Character : MonoBehaviour, ICharacter
             {
                 Attack();
                 lastAttackTime = Time.time;
+
             }
+            else
+            {
+                agent.isStopped = false;
+                MoveTowardsTarget();
+            }
+
+            if (distanceToTarget > attackRange)
+            {
+                FindNewTarget();
+            }
+
+        }
+        else
+        {
+            FindNewTarget();
         }
     }
 
@@ -60,13 +84,15 @@ public abstract class Character : MonoBehaviour, ICharacter
 
     protected virtual bool CanSeeTarget(Transform potentialTarget)
     {
-        float heightDifference = Mathf.Abs(transform.position.y - potentialTarget.transform.position.y);
-        if (heightDifference > Difference2Enemy)
-        {
-            return false;
-        }
-        else
-            return true;
+        // 自分の持つエージェントの高さと敵の高さを比較。浮いている敵に対して視認できるか、攻撃できるかの判定
+        NavMeshAgent targetAgent = potentialTarget.GetComponent<NavMeshAgent>();
+        if (targetAgent == null) return false;
+
+        float targetHeight = targetAgent.height;
+        float heightDifference = agentHeight - targetHeight;
+
+        return heightDifference <= 0;
+
     }
 
     protected void FindTarget()
@@ -75,6 +101,57 @@ public abstract class Character : MonoBehaviour, ICharacter
         // float shortestDistance = Mathf.Infinity;
         // GameObject nearestEnemy = null;
 
+        List<Character> enemies = gameManager.GetEnemies(this);
+
+        float shortestDistance = Mathf.Infinity;
+        Transform nearestEnemy = null;
+
+        foreach (Character enemy in enemies)
+        {
+            if (enemy != null && enemy.gameObject != null && enemy.gameObject.activeInHierarchy && enemy.team != this.team)
+            {
+                if (!CanSeeTarget(enemy.transform)) continue;
+                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                if (distanceToEnemy < shortestDistance)
+                {
+                    shortestDistance = distanceToEnemy;
+                    nearestEnemy = enemy.transform;
+                }
+            }
+
+        }
+        string targetTag = team == 0 ? "EnemyTower" : "PlayerTower";
+        GameObject[] enemyTowers = GameObject.FindGameObjectsWithTag(targetTag);
+        foreach (GameObject tower in enemyTowers)
+        {
+            if (tower != null && tower.activeInHierarchy)
+            {
+                if (!CanSeeTarget(tower.transform)) continue;
+                Tower towerComponent = tower.GetComponent<Tower>();
+                if (towerComponent != null && towerComponent.team != this.team)
+                {
+                    float distanceToTower = Vector3.Distance(transform.position, tower.transform.position);
+                    if (distanceToTower < shortestDistance)
+                    {
+                        shortestDistance = distanceToTower;
+                        nearestEnemy = tower.transform;
+                    }
+                }
+            }
+        }
+
+        if (nearestEnemy != null)
+        {
+            target = nearestEnemy.transform;
+        }
+        else
+        {
+            target = null;
+        }
+    }
+
+    protected void FindNewTarget()
+    {
         List<Character> enemies = gameManager.GetEnemies(this);
 
         float shortestDistance = Mathf.Infinity;
