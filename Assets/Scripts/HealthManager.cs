@@ -5,6 +5,7 @@ public class HealthManager : MonoBehaviour, IHealth
     [SerializeField] private float maxHealth = 100f;
     private float currentHealth;
     private GameManager gameManager;
+    public DragDrop dragDrop;
 
     public float Health => currentHealth;
     public float MaxHealth => maxHealth;
@@ -13,6 +14,7 @@ public class HealthManager : MonoBehaviour, IHealth
     {
         currentHealth = maxHealth;
         gameManager = FindObjectOfType<GameManager>();
+        dragDrop = FindObjectOfType<DragDrop>();
     }
 
     public void TakeDamage(float amount)
@@ -30,6 +32,10 @@ public class HealthManager : MonoBehaviour, IHealth
         if (gameObject.layer == LayerMask.NameToLayer("EnemyTower") && gameManager != null)
         {
             gameManager.Game_Win();
+        }
+        if (gameObject.layer == LayerMask.NameToLayer("SPlayerTower") && gameManager != null)
+        {
+            dragDrop.OnSubTowerDestroyed();
         }
         if (gameObject.layer == LayerMask.NameToLayer("PlayerTower") && gameManager != null)
         {

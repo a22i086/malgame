@@ -89,6 +89,7 @@ public class Horse : Character, IHealth
         if (healthManager.Health <= 0)
         {
             isDead = true;
+            base.Die();
         }
     }
 }
