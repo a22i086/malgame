@@ -27,11 +27,11 @@ public class HealthManager : MonoBehaviour, IHealth
     private void Die()
     {
         Debug.Log($"{gameObject.name} died!");
-        if (CompareTag("EnemyTower") && gameManager != null)
+        if (gameObject.layer == LayerMask.NameToLayer("EnemyTower") && gameManager != null)
         {
             gameManager.Game_Win();
         }
-        if (CompareTag("PlayerTower") && gameManager != null)
+        if (gameObject.layer == LayerMask.NameToLayer("PlayerTower") && gameManager != null)
         {
             gameManager.Game_Over();
         }

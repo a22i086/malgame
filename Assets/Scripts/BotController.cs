@@ -33,7 +33,7 @@ public class BotController : MonoBehaviour
     {
         GameObject selectedAnimalPrefab = animalPrefabs[Random.Range(0, animalPrefabs.Count)];
         Vector3 spawnPosition = spawnPoint.position;
-        spawnPosition.z -= 3.0f;
+        //spawnPosition.z -= 3.0f;
         GameObject animalInstance = Instantiate(selectedAnimalPrefab, spawnPoint.position, Quaternion.identity);
         Character animalCharacter = animalInstance.GetComponent<Character>();
         animalCharacter.team = 1;

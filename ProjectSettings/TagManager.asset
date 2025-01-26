@@ -8,6 +8,7 @@ TagManager:
   - Tower
   - EnemyTower
   - PlayerTower
+  - SPlayerTower
   layers:
   - Default
   - TransparentFX
@@ -19,8 +20,8 @@ TagManager:
   - Dog
   - Chicken
   - Horse
-  - 
-  - 
+  - PlayerTower
+  - EnemyTower
   - 
   - 
   - 
