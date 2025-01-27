@@ -20,9 +20,9 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public float spawnRange = 5f;
 
     // ステージの境界を定義
-    public Vector3 stageMinBounds = new Vector3(-7f, -2f, -52f); // 召喚できる最小
-    public Vector3 stageMaxBounds = new Vector3(13f, 10f, -12f); // サブ塔が壊されたとき変化する
-    public float reduceMaxBound = 25f;
+    // public Vector3 stageMinBounds = new Vector3(-7f, -2f, -52f); // 召喚できる最小
+    // public Vector3 stageMaxBounds = new Vector3(13f, 10f, -12f); // サブ塔が壊されたとき変化する
+    // public float reduceMaxBound = 25f;
 
     public Camera mainCamera;
 
@@ -71,9 +71,9 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             // プレハブを生成してカーソルに追随させる
             Vector3 spawnPosition = GetWorldPosition(eventData);
-            Debug.Log("スポーン範囲" + stageMaxBounds);
-            Debug.Log("スポーン地点=" + spawnPosition);
-            spawnPosition = ClampToSpawnRange(spawnPosition);
+            // Debug.Log("スポーン範囲" + stageMaxBounds);
+            // Debug.Log("スポーン地点=" + spawnPosition);
+            spawnPosition = SpawnRangeManager.Instance.ClampToSpawnRange(spawnPosition);
             if (IsInView(spawnPosition))
             {
                 spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
@@ -109,7 +109,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             {
                 // プレハブの位置を更新
                 Vector3 newPosition = GetWorldPosition(eventData);
-                newPosition = ClampToSpawnRange(newPosition);
+                newPosition = SpawnRangeManager.Instance.ClampToSpawnRange(newPosition);
                 newPosition.y = fixedY; // Y座標を固定
 
                 if (IsInView(newPosition))
@@ -134,7 +134,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             {
                 // ドラッグが終了した位置にプレハブを確定させる
                 Vector3 finalPosition = GetWorldPosition(eventData);
-                finalPosition = ClampToSpawnRange(finalPosition);
+                finalPosition = SpawnRangeManager.Instance.ClampToSpawnRange(finalPosition);
                 finalPosition.y = fixedY; // Y座標を固定
 
                 spawnedObject.transform.position = finalPosition;
@@ -181,24 +181,25 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     }
     public void OnSubTowerDestroyed()
     {
-        stageMaxBounds.z -= reduceMaxBound;
-        Debug.Log("新しいスポーン範囲" + stageMaxBounds);
+        // stageMaxBounds.z -= reduceMaxBound;
+        // Debug.Log("新しいスポーン範囲" + stageMaxBounds);
+        SpawnRangeManager.Instance.ReduceSpawnRange();
         Debug.Log("スポーン範囲が狭まった！");
     }
+    // 別スクリプトに移動
+    //     private Vector3 ClampToSpawnRange(Vector3 position)
+    //     {
+    //         // position.x = Mathf.Clamp(position.x, stageMinBounds.x, stageMaxBounds.x);
+    //         // position.z = Mathf.Clamp(position.z, stageMinBounds.z, stageMaxBounds.z);
 
-    private Vector3 ClampToSpawnRange(Vector3 position)
-    {
-        // position.x = Mathf.Clamp(position.x, stageMinBounds.x, stageMaxBounds.x);
-        // position.z = Mathf.Clamp(position.z, stageMinBounds.z, stageMaxBounds.z);
+    //         Vector3 clampedPosition = new Vector3(
+    //        Mathf.Clamp(position.x, stageMinBounds.x, stageMaxBounds.x),
+    //        position.y,
+    //        Mathf.Clamp(position.z, stageMinBounds.z, stageMaxBounds.z)
+    //    );
 
-        Vector3 clampedPosition = new Vector3(
-       Mathf.Clamp(position.x, stageMinBounds.x, stageMaxBounds.x),
-       position.y,
-       Mathf.Clamp(position.z, stageMinBounds.z, stageMaxBounds.z)
-   );
-
-        return clampedPosition;
-    }
+    //         return clampedPosition;
+    //     }
 
     private bool IsInView(Vector3 position)
     {
@@ -208,7 +209,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     private IEnumerator ClosedErrorMS(Vector3 position)
     {
-        Vector3 clampedPosition = ClampToSpawnRange(position);
+        Vector3 clampedPosition = SpawnRangeManager.Instance.ClampToSpawnRange(position);
         clampedPosition += new Vector3(0f, 11f, -34f);
         outOfBoundsIndicator.transform.position = clampedPosition;
         SpawnRangeLimit.SetActive(true);
@@ -221,6 +222,8 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube((stageMinBounds + stageMaxBounds) / 2, new Vector3(stageMaxBounds.x - stageMinBounds.x, 0, stageMaxBounds.z - stageMinBounds.z));
+        Gizmos.DrawWireCube((SpawnRangeManager.Instance.stageMinBounds + SpawnRangeManager.Instance.stageMaxBounds) / 2
+        , new Vector3(SpawnRangeManager.Instance.stageMaxBounds.x - SpawnRangeManager.Instance.stageMinBounds.x, 0
+        , SpawnRangeManager.Instance.stageMaxBounds.z - SpawnRangeManager.Instance.stageMinBounds.z));
     }
 }
