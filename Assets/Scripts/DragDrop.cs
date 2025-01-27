@@ -219,11 +219,11 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         SpawnRangeLimit.SetActive(false);
     }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube((SpawnRangeManager.Instance.stageMinBounds + SpawnRangeManager.Instance.stageMaxBounds) / 2
-        , new Vector3(SpawnRangeManager.Instance.stageMaxBounds.x - SpawnRangeManager.Instance.stageMinBounds.x, 0
-        , SpawnRangeManager.Instance.stageMaxBounds.z - SpawnRangeManager.Instance.stageMinBounds.z));
-    }
+    // void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireCube((SpawnRangeManager.Instance.stageMinBounds + SpawnRangeManager.Instance.stageMaxBounds) / 2
+    //     , new Vector3(SpawnRangeManager.Instance.stageMaxBounds.x - SpawnRangeManager.Instance.stageMinBounds.x, 0
+    //     , SpawnRangeManager.Instance.stageMaxBounds.z - SpawnRangeManager.Instance.stageMinBounds.z));
+    // }
 }
