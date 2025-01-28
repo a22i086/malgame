@@ -36,6 +36,7 @@ public class HealthManager : MonoBehaviour, IHealth
         if (gameObject.layer == LayerMask.NameToLayer("SPlayerTower") && gameManager != null)
         {
             dragDrop.OnSubTowerDestroyed();
+            gameManager.SubTower_Destroy();
         }
         if (gameObject.layer == LayerMask.NameToLayer("PlayerTower") && gameManager != null)
         {

@@ -181,10 +181,8 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     }
     public void OnSubTowerDestroyed()
     {
-        // stageMaxBounds.z -= reduceMaxBound;
-        // Debug.Log("新しいスポーン範囲" + stageMaxBounds);
         SpawnRangeManager.Instance.ReduceSpawnRange();
-        Debug.Log("スポーン範囲が狭まった！");
+        //Debug.Log("スポーン範囲が狭まった！");
     }
     // 別スクリプトに移動
     //     private Vector3 ClampToSpawnRange(Vector3 position)
