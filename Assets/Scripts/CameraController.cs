@@ -1,14 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
+using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
     public float panSpeed = 20f; // カメラの移動速度
     public Scrollbar scrollbar;
+    public PostProcessVolume postProcessVolume;
+    private ChromaticAberration chromaticAberration;
     private Vector3 initialPosition;
+    private Coroutine resetCoroutine;
 
     public float minHeight = -60f;
     public float maxHeight = 20f;
+    public float resetDelay = 0.1f;
 
     void Start()
     {
@@ -16,6 +22,7 @@ public class CameraController : MonoBehaviour
         initialPosition = transform.position;
         // スクロールバーの値を変更する
         scrollbar.onValueChanged.AddListener(OnScrollbarValueChanged);
+        postProcessVolume.profile.TryGetSettings(out chromaticAberration);
     }
 
     void Update()
@@ -43,5 +50,22 @@ public class CameraController : MonoBehaviour
         Vector3 newPosition = initialPosition;
         newPosition.z = newZ;
         transform.position = newPosition;
+        chromaticAberration.intensity.value = Mathf.Lerp(0f, 1f, value);
+
+        if (resetCoroutine != null)
+        {
+            StopCoroutine(resetCoroutine);
+        }
+        resetCoroutine = StartCoroutine(ResetChromaticAberration());
+    }
+
+    private IEnumerator ResetChromaticAberration()
+    {
+        yield return new WaitForSeconds(resetDelay);
+
+        if (chromaticAberration != null)
+        {
+            chromaticAberration.intensity.value = 0f;
+        }
     }
 }
