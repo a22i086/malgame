@@ -1179,7 +1179,7 @@ RectTransform:
   m_GameObject: {fileID: 167081257}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.51875, y: 0.51875, z: 0.51875}
+  m_LocalScale: {x: 0.4328125, y: 0.4328125, z: 0.4328125}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1600859598}
@@ -1191,7 +1191,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 720, y: 1280}
+  m_SizeDelta: {x: 719.99994, y: 1279.9999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &167081259
 MonoBehaviour:
@@ -5416,9 +5416,9 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.19334975
+    x: 0.2037785
     y: 0
-    width: 0.6133005
+    width: 0.592443
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -7327,6 +7327,7 @@ GameObject:
   - component: {fileID: 1298925105}
   - component: {fileID: 1298925104}
   - component: {fileID: 1298925103}
+  - component: {fileID: 1298925107}
   m_Layer: 5
   m_Name: AnimalSpowner
   m_TagString: Untagged
@@ -7416,6 +7417,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1298925107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298925102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52bd9eba7db0e9b4db5ab04fc92adf59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animalImages:
+  - {fileID: 1319035033}
+  - {fileID: 2128694710}
+  - {fileID: 1600859602}
+  dragDropScripts:
+  - {fileID: 1319035035}
+  - {fileID: 2128694712}
+  - {fileID: 1600859599}
+  dogSprite: {fileID: 21300000, guid: 4de43d407695d234f966d1227720e337, type: 3}
+  horseSprite: {fileID: 21300000, guid: 19fc82fd0f7d7894b9fab0f74e3caa00, type: 3}
+  eagleSprite: {fileID: 21300000, guid: c996720dd605d9c46a3670dbc662ed47, type: 3}
+  dogPrefab: {fileID: 1975505327361874111, guid: 7e65553da118d254a8d10998f8fe38fd, type: 3}
+  horsePrefab: {fileID: 6693446660304626412, guid: 43bd1953f3878c1469dce88d0eb04c11, type: 3}
+  eaglePrefab: {fileID: 2684139197734781563, guid: e550214e64f51d84194f71d489956d78, type: 3}
 --- !u!1 &1307034176 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0434cb7206862f54b9772c707e1c5274, type: 3}
@@ -7977,7 +8004,7 @@ RectTransform:
   m_GameObject: {fileID: 1433909788}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.51875, y: 0.51875, z: 0.51875}
+  m_LocalScale: {x: 0.4328125, y: 0.4328125, z: 0.4328125}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1226989179}
@@ -7987,7 +8014,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 720, y: 1280}
+  m_SizeDelta: {x: 719.99994, y: 1279.9999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1433909790
 MonoBehaviour:

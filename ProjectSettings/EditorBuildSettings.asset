@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScene.unity
     guid: c8939a9eb4a292b4097862627f2fa329
   - enabled: 1
+    path: Assets/Scenes/AnimalSelectionScene.unity
+    guid: 3eeb21964355c484e894b4a2d02b0711
+  - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

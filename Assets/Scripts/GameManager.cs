@@ -124,11 +124,13 @@ public class GameManager : MonoBehaviour
     public void Game_Win()
     {
         gameWinCanvas.SetActive(true);
+        PlayerPrefs.DeleteAll();
         StartCoroutine(StopGameAfterAnimation());
     }
     public void Game_Over()
     {
         gameOverCanvas.SetActive(true);
+        PlayerPrefs.DeleteAll();
         StartCoroutine(StopGameAfterAnimation());
     }
     public void SubTower_Destroy()

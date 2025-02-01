@@ -1,0 +1,55 @@
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
+
+public class AnimalSpawner : MonoBehaviour
+{
+    public Image[] animalImages; // スロット用のイメージ配列
+    public DragDrop[] dragDropScripts; // DragDropスクリプトの配列
+
+    // public Sprite chickenSprite;
+    public Sprite dogSprite;
+    public Sprite horseSprite;
+    public Sprite eagleSprite;
+
+    // public GameObject chickenPrefab;
+    public GameObject dogPrefab;
+    public GameObject horsePrefab;
+    public GameObject eaglePrefab;
+
+    private Dictionary<string, Sprite> animalSprites;
+    private Dictionary<string, GameObject> animalPrefabs;
+
+    void Start()
+    {
+        animalSprites = new Dictionary<string, Sprite>
+        {
+            //{ "Chicken", chickenSprite },
+            { "Dog", dogSprite },
+            { "Horse", horseSprite },
+            { "Eagle", eagleSprite }
+        };
+
+        animalPrefabs = new Dictionary<string, GameObject>
+        {
+            //{ "Chicken", chickenPrefab },
+            { "Dog", dogPrefab },
+            { "Horse", horsePrefab },
+            { "Eagle", eaglePrefab }
+        };
+
+        string selectedAnimalsString = PlayerPrefs.GetString("SelectedAnimals");
+        string[] selectedAnimals = selectedAnimalsString.Split(',');
+
+        for (int i = 0; i < selectedAnimals.Length && i < animalImages.Length && i < dragDropScripts.Length; i++)
+        {
+            string animalName = selectedAnimals[i];
+            if (animalSprites.ContainsKey(animalName) && animalPrefabs.ContainsKey(animalName))
+            {
+                animalImages[i].sprite = animalSprites[animalName]; // スロットの画像を設定
+                dragDropScripts[i].prefabToSpawn = animalPrefabs[animalName]; // プレハブを設定
+                animalImages[i].gameObject.SetActive(true); // スロットを表示
+            }
+        }
+    }
+}

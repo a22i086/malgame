@@ -5,6 +5,6 @@ public class StartGame : MonoBehaviour
 {
     public void StartGameScene()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("AnimalSelectionScene");
     }
 }

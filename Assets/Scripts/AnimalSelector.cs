@@ -10,21 +10,31 @@ public class AnimalSelector : MonoBehaviour
     public Text selectedAnimalsText;
     // public Button confirmButton;
 
-    // void Start()
-    // {
-    //     confirmButton.onClick.AddListener(OnConfirm);
-    // }
+    void Start()
+    {
+        confirmPanel.SetActive(false);
+        // confirmButton.onClick.AddListener(OnConfirm);
+    }
 
     public void SelectAnimal(string animalName)
     {
-        if (selectedAnimals.Count < maxAnimals)
+        if (selectedAnimals.Contains(animalName))
+        {
+            selectedAnimals.Remove(animalName);
+        }
+        else if (selectedAnimals.Count < maxAnimals)
         {
             selectedAnimals.Add(animalName);
-            UpdateSelectedAnimalsText();
-            if (selectedAnimals.Count == maxAnimals)
-            {
-                confirmPanel.SetActive(true);
-            }
+
+        }
+        UpdateSelectedAnimalsText();
+        if (selectedAnimals.Count == maxAnimals)
+        {
+            confirmPanel.SetActive(true);
+        }
+        else
+        {
+            confirmPanel.SetActive(false);
         }
     }
 
