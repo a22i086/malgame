@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using System.Collections.Generic;
 
 public class AnimalSelector : MonoBehaviour
@@ -7,7 +8,7 @@ public class AnimalSelector : MonoBehaviour
     public List<string> selectedAnimals = new List<string>();
     public int maxAnimals = 3;
     public GameObject confirmPanel;
-    public Text selectedAnimalsText;
+    public TMP_Text selectedAnimalsText;
     // public Button confirmButton;
 
     void Start()
@@ -40,7 +41,7 @@ public class AnimalSelector : MonoBehaviour
 
     void UpdateSelectedAnimalsText()
     {
-        selectedAnimalsText.text = "Selected Animals: " + string.Join(", ", selectedAnimals);
+        selectedAnimalsText.text = "選ばれたのは" + string.Join(", ", selectedAnimals);
         //confirmButton.interactable = (selectedAnimals.Count == maxAnimals);
     }
 

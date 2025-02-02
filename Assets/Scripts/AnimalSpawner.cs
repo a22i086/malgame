@@ -25,17 +25,17 @@ public class AnimalSpawner : MonoBehaviour
         animalSprites = new Dictionary<string, Sprite>
         {
             //{ "Chicken", chickenSprite },
-            { "Dog", dogSprite },
-            { "Horse", horseSprite },
-            { "Eagle", eagleSprite }
+            { "犬", dogSprite },
+            { "馬", horseSprite },
+            { "鷲", eagleSprite }
         };
 
         animalPrefabs = new Dictionary<string, GameObject>
         {
             //{ "Chicken", chickenPrefab },
-            { "Dog", dogPrefab },
-            { "Horse", horsePrefab },
-            { "Eagle", eaglePrefab }
+            { "犬", dogPrefab },
+            { "馬", horsePrefab },
+            { "鷲", eaglePrefab }
         };
 
         string selectedAnimalsString = PlayerPrefs.GetString("SelectedAnimals");
