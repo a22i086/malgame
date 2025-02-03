@@ -918,4 +918,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be24907fee2f0d43a7aee48b963be45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 75
+  dragDrop: {fileID: 0}
