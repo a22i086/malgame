@@ -293,7 +293,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1294271778169428, guid: d19dd43872ee43b4896d75d23e9db9e6, type: 3}
       propertyPath: m_Name
-      value: Elephant
+      value: Elephant Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1294271778169428, guid: d19dd43872ee43b4896d75d23e9db9e6, type: 3}
       propertyPath: m_Layer
@@ -347,6 +347,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 95119886744561808, guid: d19dd43872ee43b4896d75d23e9db9e6, type: 3}
+      propertyPath: m_CullingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 116406331888519824, guid: d19dd43872ee43b4896d75d23e9db9e6, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -370,6 +374,10 @@ PrefabInstance:
     - target: {fileID: 195264345380913988, guid: d19dd43872ee43b4896d75d23e9db9e6, type: 3}
       propertyPath: m_AngularSpeed
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 195264345380913988, guid: d19dd43872ee43b4896d75d23e9db9e6, type: 3}
+      propertyPath: m_WalkableMask
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 195264345380913988, guid: d19dd43872ee43b4896d75d23e9db9e6, type: 3}
       propertyPath: m_StoppingDistance
@@ -595,6 +603,7 @@ PrefabInstance:
     - {fileID: 114636383686190758, guid: d19dd43872ee43b4896d75d23e9db9e6, type: 3}
     - {fileID: 114372793518428314, guid: d19dd43872ee43b4896d75d23e9db9e6, type: 3}
     - {fileID: 143954421209753422, guid: d19dd43872ee43b4896d75d23e9db9e6, type: 3}
+    - {fileID: 82448226072829002, guid: d19dd43872ee43b4896d75d23e9db9e6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d19dd43872ee43b4896d75d23e9db9e6, type: 3}
 --- !u!1 &6567792375640689607 stripped
 GameObject:
@@ -617,6 +626,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &6100888654614553935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6567792375640689607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90eb4c282a8bfa04694736054b9f1f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  attackRange: 0
+  agent: {fileID: 0}
+  attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
+  gameManager: {fileID: 0}
+  team: 0
+  isPlayerControlled: 0
+  isSpawnConfirmed: 0
 --- !u!114 &7983535512304375364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,26 +679,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 250
   dragDrop: {fileID: 0}
---- !u!114 &6100888654614553935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6567792375640689607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90eb4c282a8bfa04694736054b9f1f9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0
-  attackRange: 0
-  agent: {fileID: 0}
-  attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
-  gameManager: {fileID: 0}
-  team: 0
-  isPlayerControlled: 0
-  isSpawnConfirmed: 0
 --- !u!4 &6570655488986626777 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4025478222779210, guid: d19dd43872ee43b4896d75d23e9db9e6, type: 3}

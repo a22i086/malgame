@@ -86,7 +86,7 @@ public abstract class Character : MonoBehaviour, ICharacter
     {
         // 自分の持つエージェントの高さと敵の高さを比較。浮いている敵に対して視認できるか、攻撃できるかの判定
         NavMeshAgent targetAgent = potentialTarget.GetComponent<NavMeshAgent>();
-        if (targetAgent == null) return false;
+        //if (targetAgent == null) return false;
 
         float targetHeight = targetAgent.height;
         float heightDifference = agentHeight - targetHeight;

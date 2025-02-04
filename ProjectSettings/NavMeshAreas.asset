@@ -164,7 +164,7 @@ NavMeshProjectSettings:
   - serializedVersion: 2
     agentTypeID: 287145453
     agentRadius: 1.5
-    agentHeight: 2.5
+    agentHeight: 1.5
     agentSlope: 10.1
     agentClimb: 1
     ledgeDropHeight: 0
