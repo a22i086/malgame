@@ -38,6 +38,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             cooldownCircle.SetActive(false); // 初期状態で非表示
         }
+
     }
 
     void Update()
@@ -82,7 +83,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                 animalCharacter.isPlayerControlled = true;
                 animalCharacter.isSpawnConfirmed = false;
                 gameManager.AddPlayerAnimal(animalCharacter);
-
+                cooldownTime = animalCharacter.spawnCooldown; // 各動物のスポーンCTを参照
                 // Rigidbodyを無効化
                 rb = spawnedObject.GetComponent<Rigidbody>();
                 if (rb != null)

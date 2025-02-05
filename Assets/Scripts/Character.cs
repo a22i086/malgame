@@ -10,6 +10,7 @@ public abstract class Character : MonoBehaviour, ICharacter
     public float speed;
     protected float attackPower;
     public float attackRange;
+    public float spawnCooldown;
     protected float attackCooldown;
     protected float lastAttackTime;
     //private float Difference2Enemy = 3.0f;

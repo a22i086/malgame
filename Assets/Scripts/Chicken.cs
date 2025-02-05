@@ -19,6 +19,7 @@ public class Chicken : Character, IHealth
         speed = 30f;
         attackPower = 10f;
         attackRange = 5f;
+        spawnCooldown = 4.0f;
         attackCooldown = 2.0f;
         agent.speed = speed;
         agent.updatePosition = true; // NavMeshAgentの高さ制御を無効化

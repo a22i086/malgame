@@ -16,6 +16,7 @@ public class Elephant : Character, IHealth
         speed = 20f;
         attackPower = 30f;
         attackRange = 10f;
+        spawnCooldown = 5.0f;
         attackCooldown = 3.0f;
         agent.speed = speed;
         lastAttackTime = -attackCooldown;

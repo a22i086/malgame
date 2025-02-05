@@ -20,6 +20,7 @@ public class Dog : Character, IHealth
         speed = 35f;
         attackPower = 15f;
         attackRange = 7f;
+        spawnCooldown = 3.0f;
         attackCooldown = 2.0f;
         agent.speed = speed;
         lastAttackTime = -attackCooldown;

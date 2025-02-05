@@ -20,6 +20,7 @@ public class Horse : Character, IHealth
         speed = 50f;
         attackPower = 20f;
         attackRange = 10f;
+        spawnCooldown = 3.0f;
         attackCooldown = 2.0f;
         agent.speed = speed;
         lastAttackTime = -attackCooldown;
