@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -79,11 +80,15 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             {
                 spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
                 Character animalCharacter = spawnedObject.GetComponent<Character>();
-                animalCharacter.team = 0;
-                animalCharacter.isPlayerControlled = true;
-                animalCharacter.isSpawnConfirmed = false;
-                gameManager.AddPlayerAnimal(animalCharacter);
-                cooldownTime = animalCharacter.spawnCooldown; // 各動物のスポーンCTを参照
+                if (animalCharacter != null)
+                {
+                    animalCharacter.team = 0;
+                    animalCharacter.isPlayerControlled = true;
+                    animalCharacter.isSpawnConfirmed = false;
+                    gameManager.AddPlayerAnimal(animalCharacter);
+                    cooldownTime = animalCharacter.spawnCooldown; // 各動物のスポーンCTを参照
+                }
+
                 // Rigidbodyを無効化
                 rb = spawnedObject.GetComponent<Rigidbody>();
                 if (rb != null)
@@ -106,12 +111,27 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         if (spawnedObject != null)
         {
             Character animalCharacter = spawnedObject.GetComponent<Character>();
-            if (animalCharacter.isPlayerControlled)
+            if (animalCharacter != null && animalCharacter.isPlayerControlled)
             {
                 // プレハブの位置を更新
                 Vector3 newPosition = GetWorldPosition(eventData);
                 newPosition = SpawnRangeManager.Instance.ClampToSpawnRange(newPosition);
                 newPosition.y = fixedY; // Y座標を固定
+
+                if (IsInView(newPosition))
+                {
+                    spawnedObject.transform.position = newPosition;
+                }
+                else
+                {
+                    Debug.Log("Drag position is out of camera view");
+                }
+            }
+            else
+            {
+                Vector3 newPosition = GetWorldPosition(eventData);
+                newPosition = SpawnRangeManager.Instance.ClampToSpawnRange(newPosition);
+                newPosition.y = fixedY;
 
                 if (IsInView(newPosition))
                 {
@@ -131,7 +151,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         if (spawnedObject != null)
         {
             Character animalCharacter = spawnedObject.GetComponent<Character>();
-            if (animalCharacter.isPlayerControlled)
+            if (animalCharacter != null && animalCharacter.isPlayerControlled)
             {
                 // ドラッグが終了した位置にプレハブを確定させる
                 Vector3 finalPosition = GetWorldPosition(eventData);
@@ -152,6 +172,36 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                 lastSpawnTime = Time.time;
                 SpawnRangeLimit.SetActive(false);
                 //動物を置いたらCT開始
+                if (cooldownCircle != null)
+                {
+                    Image cooldownImage = cooldownCircle.GetComponent<Image>();
+                    if (cooldownImage != null)
+                    {
+                        cooldownImage.fillAmount = 0f;
+                    }
+                    cooldownCircle.SetActive(true);
+                }
+            }
+
+            else
+            {
+                // ドラッグが終了した位置にプレハブを確定させる
+                Vector3 finalPosition = GetWorldPosition(eventData);
+                finalPosition = SpawnRangeManager.Instance.ClampToSpawnRange(finalPosition);
+                finalPosition.y = -1.87f; // Y座標を固定
+
+                spawnedObject.transform.position = finalPosition;
+
+                // Rigidbodyを有効化
+                if (rb != null)
+                {
+                    rb.isKinematic = false;
+                }
+                spawnedObject = null;
+                Debug.Log($"Spawned {prefabToSpawn.name} at {finalPosition}");
+                lastSpawnTime = Time.time;
+                SpawnRangeLimit.SetActive(false);
+                //トラップを置いたらCT開始
                 if (cooldownCircle != null)
                 {
                     Image cooldownImage = cooldownCircle.GetComponent<Image>();
