@@ -779,6 +779,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 4593347469909280825, guid: c731d11969cd60b419af78b04aa24e9a, type: 3}
+      propertyPath: m_TagString
+      value: Animal
+      objectReference: {fileID: 0}
     - target: {fileID: 4593347469909578777, guid: c731d11969cd60b419af78b04aa24e9a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -881,6 +885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   attackRange: 0
+  spawnCooldown: 0
   agent: {fileID: 0}
   attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
   gameManager: {fileID: 0}

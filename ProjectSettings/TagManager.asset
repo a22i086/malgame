@@ -9,6 +9,7 @@ TagManager:
   - EnemyTower
   - PlayerTower
   - SPlayerTower
+  - Animal
   layers:
   - Default
   - TransparentFX

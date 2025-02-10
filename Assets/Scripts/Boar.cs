@@ -13,7 +13,7 @@ public class Boar : Character, IHealth
     protected override void Awake()
     {
         base.Awake();
-        health = 60f;
+        health = 50f;
         speed = 60f;
         attackPower = 20f;
         attackRange = 4f;
@@ -45,6 +45,40 @@ public class Boar : Character, IHealth
         else
         {
             animator.SetBool("isRunning", false);
+        }
+    }
+
+    protected override void FindTarget()
+    {
+        string targetTag = team == 0 ? "EnemyTower" : "PlayerTower";
+        GameObject[] enemyTowers = GameObject.FindGameObjectsWithTag(targetTag);
+        float shortestDistance = Mathf.Infinity;
+        Transform nearestTower = null;
+        foreach (GameObject tower in enemyTowers)
+        {
+            if (tower != null && tower.activeInHierarchy)
+            {
+                if (!CanSeeTarget(tower.transform)) continue;
+                Tower towerComponent = tower.GetComponent<Tower>();
+                if (towerComponent != null && towerComponent.team != this.team)
+                {
+                    float distanceToTower = Vector3.Distance(transform.position, tower.transform.position);
+                    if (distanceToTower < shortestDistance)
+                    {
+                        shortestDistance = distanceToTower;
+                        nearestTower = tower.transform;
+                    }
+                }
+            }
+        }
+
+        if (nearestTower != null)
+        {
+            target = nearestTower.transform;
+        }
+        else
+        {
+            target = null;
         }
     }
 

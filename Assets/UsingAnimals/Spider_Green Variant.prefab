@@ -4881,6 +4881,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spider_Green Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1356782923155146, guid: c4fa44d6ad133e0409f10009615a9247, type: 3}
+      propertyPath: m_TagString
+      value: Animal
+      objectReference: {fileID: 0}
     - target: {fileID: 4076145861652930, guid: c4fa44d6ad133e0409f10009615a9247, type: 3}
       propertyPath: m_RootOrder
       value: 0

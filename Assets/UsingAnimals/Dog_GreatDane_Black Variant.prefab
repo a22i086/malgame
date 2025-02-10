@@ -343,6 +343,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1149234200949348, guid: 2724ea9d48f53a64299a8e5616a496c8, type: 3}
+      propertyPath: m_TagString
+      value: Animal
+      objectReference: {fileID: 0}
     - target: {fileID: 1149297703058442, guid: 2724ea9d48f53a64299a8e5616a496c8, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -696,6 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  dragDrop: {fileID: 0}
 --- !u!114 &642414227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -729,6 +734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   attackRange: 0
+  spawnCooldown: 0
   agent: {fileID: 0}
   attackEffectPrefab: {fileID: 7373109511005820957, guid: 62c35def3bb74f546bf256145884068a, type: 3}
   gameManager: {fileID: 0}

@@ -96,7 +96,7 @@ public abstract class Character : MonoBehaviour, ICharacter
 
     }
 
-    protected void FindTarget()
+    protected virtual void FindTarget()
     {
         // GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         // float shortestDistance = Mathf.Infinity;
