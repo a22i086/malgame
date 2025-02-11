@@ -14,7 +14,7 @@ public class Elephant : Character, IHealth
         base.Awake();
         health = 200f;
         speed = 20f;
-        attackPower = 30f;
+        attackPower = 50f;
         attackRange = 10f;
         spawnCooldown = 5.0f;
         attackCooldown = 3.0f;
