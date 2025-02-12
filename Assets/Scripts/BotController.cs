@@ -12,11 +12,14 @@ public class BotController : MonoBehaviour
     private float spawnTimer = 0f;
     public GameManager gameManager; // ゲームマネージャーへの参照
     public EnemyAlert enemyAlert; // アラートアイコンの表示
+    private List<GameObject> selectedAnimals = new List<GameObject>();
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         enemyAlert = FindObjectOfType<EnemyAlert>();
+
+        SelectRandomAnimals();
     }
 
     void Update()
@@ -29,9 +32,23 @@ public class BotController : MonoBehaviour
         }
     }
 
+    void SelectRandomAnimals()
+    {
+        List<GameObject> shuffledAnimals = new List<GameObject>(animalPrefabs);
+        for (int i = 0; i < shuffledAnimals.Count; i++)
+        {
+            int rnd = Random.Range(0, shuffledAnimals.Count);
+            GameObject temp = shuffledAnimals[i];
+            shuffledAnimals[i] = shuffledAnimals[rnd];
+            shuffledAnimals[rnd] = temp;
+        }
+
+        selectedAnimals = shuffledAnimals.GetRange(0, Mathf.Min(3, shuffledAnimals.Count));
+    }
+
     void SpawnAnimal()
     {
-        GameObject selectedAnimalPrefab = animalPrefabs[Random.Range(0, animalPrefabs.Count)];
+        GameObject selectedAnimalPrefab = selectedAnimals[Random.Range(0, selectedAnimals.Count)];
         Vector3 spawnPosition = spawnPoint.position;
         //spawnPosition.z -= 3.0f;
         GameObject animalInstance = Instantiate(selectedAnimalPrefab, spawnPoint.position, Quaternion.identity);

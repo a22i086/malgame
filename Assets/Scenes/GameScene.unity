@@ -7621,7 +7621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b7cbba84e042154b823a07b9633891f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 5
+  range: 10
   fireRate: 1
   BulletPrefab: {fileID: 6790940007437948232, guid: f70b8465cbf2ed74f994c5a3c68c2b4d, type: 3}
   firePoint: {fileID: 1867740241}
@@ -8017,8 +8017,10 @@ MonoBehaviour:
   - {fileID: 1975505327361874111, guid: 7e65553da118d254a8d10998f8fe38fd, type: 3}
   - {fileID: 6693446660304626412, guid: 43bd1953f3878c1469dce88d0eb04c11, type: 3}
   - {fileID: 2684139197734781563, guid: e550214e64f51d84194f71d489956d78, type: 3}
+  - {fileID: 7589971973584804326, guid: fd7675a93cbc192409f5bca60d689f95, type: 3}
+  - {fileID: 6567792375640689607, guid: 0f2d3043050cadf40bcd3683a5a89dfa, type: 3}
   spawnPoint: {fileID: 111606447}
-  spawnInterval: 5
+  spawnInterval: 2
   waitTimeAfterSpawn: 2
   gameManager: {fileID: 0}
   enemyAlert: {fileID: 0}
@@ -8058,7 +8060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be24907fee2f0d43a7aee48b963be45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 300
   dragDrop: {fileID: 0}
 --- !u!23 &1307034185 stripped
 MeshRenderer:

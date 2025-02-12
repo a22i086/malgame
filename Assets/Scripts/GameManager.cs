@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverCanvas;
     public GameObject gameWinCanvas;
     public GameObject subTowerDestroyedCanvas;
+    public SpawnRangeManager spawnRangeManager;
     private List<Character> playerAnimals = new List<Character>();
     private List<Character> botAnimals = new List<Character>();
     // Start is called before the first frame update
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
         gameOverCanvas.SetActive(false);
         gameWinCanvas.SetActive(false);
         subTowerDestroyedCanvas.SetActive(false);
+        spawnRangeManager = FindObjectOfType<SpawnRangeManager>();
     }
     void Update()
     {
@@ -125,12 +127,14 @@ public class GameManager : MonoBehaviour
     {
         gameWinCanvas.SetActive(true);
         PlayerPrefs.DeleteAll();
+        spawnRangeManager.ResetSpawnRange();
         StartCoroutine(StopGameAfterAnimation());
     }
     public void Game_Over()
     {
         gameOverCanvas.SetActive(true);
         PlayerPrefs.DeleteAll();
+        spawnRangeManager.ResetSpawnRange();
         StartCoroutine(StopGameAfterAnimation());
     }
     public void SubTower_Destroy()

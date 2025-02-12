@@ -12,7 +12,7 @@ public class GameOver : MonoBehaviour
     }
     public void RetryCurrentScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("AnimalSelectionScene");
         gameManager.RestartGame();
     }
     public void BackToTitleScene()
