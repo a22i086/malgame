@@ -1,34 +1,35 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System.Collections.Generic;
 
 public class AnimalSelector : MonoBehaviour
 {
-    public List<string> selectedAnimals = new List<string>();
+    public List<GameObject> animalPrefabs; // 動物のプレハブリスト
+    public List<GameObject> selectedAnimals = new List<GameObject>();
     public int maxAnimals = 3;
     public GameObject confirmPanel;
-    public TMP_Text selectedAnimalsText;
-    // public Button confirmButton;
+    public Transform[] spawnPositions; // スポーン位置の配列
+    private int currentSpawnIndex = 0;
+
+    private Dictionary<GameObject, GameObject> spawnedAnimals = new Dictionary<GameObject, GameObject>();
+
 
     void Start()
     {
         confirmPanel.SetActive(false);
-        // confirmButton.onClick.AddListener(OnConfirm);
     }
 
-    public void SelectAnimal(string animalName)
+    public void SelectAnimal(int animalIndex)
     {
-        if (selectedAnimals.Contains(animalName))
+        GameObject animalPrefab = animalPrefabs[animalIndex];
+        if (selectedAnimals.Contains(animalPrefab))
         {
-            selectedAnimals.Remove(animalName);
+            selectedAnimals.Remove(animalPrefab);
         }
         else if (selectedAnimals.Count < maxAnimals)
         {
-            selectedAnimals.Add(animalName);
-
+            selectedAnimals.Add(animalPrefab);
         }
-        UpdateSelectedAnimalsText();
+
         if (selectedAnimals.Count == maxAnimals)
         {
             confirmPanel.SetActive(true);
@@ -37,24 +38,54 @@ public class AnimalSelector : MonoBehaviour
         {
             confirmPanel.SetActive(false);
         }
-    }
 
-    void UpdateSelectedAnimalsText()
-    {
-        selectedAnimalsText.text = "選ばれたのは" + string.Join(", ", selectedAnimals);
-        //confirmButton.interactable = (selectedAnimals.Count == maxAnimals);
+        if (spawnedAnimals.ContainsKey(animalPrefab))
+        {
+            GameObject spawnedAnimal = spawnedAnimals[animalPrefab];
+            if (spawnedAnimal != null)
+            {
+                Destroy(spawnedAnimal);
+            }
+            spawnedAnimals.Remove(animalPrefab);
+            currentSpawnIndex--;
+        }
+        else
+        {
+            Vector3 spawnPosition = spawnPositions[currentSpawnIndex % spawnPositions.Length].position;
+            Quaternion rotation = Quaternion.Euler(0, 180, 0);
+            GameObject spawnedAnimal = Instantiate(animalPrefab, spawnPosition, rotation);
+            spawnedAnimals.Add(animalPrefab, spawnedAnimal);
+
+            currentSpawnIndex++;
+        }
     }
 
     public void OnConfirm()
     {
-        PlayerPrefs.SetString("SelectedAnimals", string.Join(",", selectedAnimals));
+        List<int> selectedAnimalIndexes = new List<int>();
+        foreach (GameObject animalPrefab in selectedAnimals)
+        {
+            int index = animalPrefabs.IndexOf(animalPrefab);
+            if (index != -1)
+            {
+                selectedAnimalIndexes.Add(index);
+            }
+        }
+        PlayerPrefs.SetString("SelectedAnimals", string.Join(",", selectedAnimalIndexes));
+        PlayerPrefs.Save();
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
     }
 
     public void OnCancel()
     {
         selectedAnimals.Clear();
+        currentSpawnIndex = 0;
         confirmPanel.SetActive(false);
-        UpdateSelectedAnimalsText();
+
+        foreach (var spawnedAnimal in spawnedAnimals.Values)
+        {
+            Destroy(spawnedAnimal);
+        }
+        spawnedAnimals.Clear();
     }
 }

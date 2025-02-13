@@ -23,45 +23,50 @@ public class AnimalSpawner : MonoBehaviour
     public GameObject slowtrapPrefab;
     public GameObject BoarPrefab;
 
-    private Dictionary<string, Sprite> animalSprites;
-    private Dictionary<string, GameObject> animalPrefabs;
+    private Dictionary<int, Sprite> animalSprites;
+    private Dictionary<int, GameObject> animalPrefabs;
+    private Dictionary<int, GameObject> spawnedAnimals = new Dictionary<int, GameObject>();
 
     void Start()
     {
-        animalSprites = new Dictionary<string, Sprite>
+        animalSprites = new Dictionary<int, Sprite>
         {
             //{ "Chicken", chickenSprite },
-            { "犬", dogSprite },
-            { "馬", horseSprite },
-            { "鷲", eagleSprite },
-            { "象", elephantSprite},
-            { "蜘蛛", slowtrapSprite},
-            { "猪", BoarSprite}
+            { 0, dogSprite },
+            { 1, horseSprite },
+            { 2, eagleSprite },
+            { 3, elephantSprite},
+            { 4, slowtrapSprite},
+            { 5, BoarSprite}
         };
 
-        animalPrefabs = new Dictionary<string, GameObject>
+        animalPrefabs = new Dictionary<int, GameObject>
         {
             //{ "Chicken", chickenPrefab },
-            { "犬", dogPrefab },
-            { "馬", horsePrefab },
-            { "鷲", eaglePrefab },
-            { "象", elephantPrefab},
-            {"蜘蛛", slowtrapPrefab},
-            {"猪", BoarPrefab}
+            { 0, dogPrefab },
+            { 1, horsePrefab },
+            { 2, eaglePrefab },
+            { 3, elephantPrefab},
+            { 4, slowtrapPrefab},
+            { 5, BoarPrefab}
         };
 
         string selectedAnimalsString = PlayerPrefs.GetString("SelectedAnimals");
-        string[] selectedAnimals = selectedAnimalsString.Split(',');
+        string[] selectedAnimalString = selectedAnimalsString.Split(',');
+        int[] selectedAnimals = System.Array.ConvertAll(selectedAnimalString, int.Parse);
 
         for (int i = 0; i < selectedAnimals.Length && i < animalImages.Length && i < dragDropScripts.Length; i++)
         {
-            string animalName = selectedAnimals[i];
-            if (animalSprites.ContainsKey(animalName) && animalPrefabs.ContainsKey(animalName))
+            int animalIndex = selectedAnimals[i];
+
+            if (animalSprites.ContainsKey(animalIndex) && animalPrefabs.ContainsKey(animalIndex))
             {
-                animalImages[i].sprite = animalSprites[animalName]; // スロットの画像を設定
-                dragDropScripts[i].prefabToSpawn = animalPrefabs[animalName]; // プレハブを設定
+                animalImages[i].sprite = animalSprites[animalIndex]; // スロットの画像を設定
+                dragDropScripts[i].prefabToSpawn = animalPrefabs[animalIndex]; // プレハブを設定
                 animalImages[i].gameObject.SetActive(true); // スロットを表示
             }
+
+
         }
     }
 }
