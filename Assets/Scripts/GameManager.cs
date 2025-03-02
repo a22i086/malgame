@@ -33,31 +33,8 @@ public class GameManager : MonoBehaviour
         botAnimals.Add(animal);
     }
 
-    // private void UpdateTargets()
-    // {
-    //     foreach (var playerAnimal in playerAnimals)
-    //     {
-    //         if (botAnimals.Count > 0)
-    //         {
-    //             playerAnimal.SetTarget(botAnimals[0].transform);
-    //         }
-    //     }
-    //     foreach (var botAnimal in botAnimals)
-    //     {
-    //         if (playerAnimals.Count > 0)
-    //         {
-    //             botAnimal.SetTarget(playerAnimals[0].transform);
-    //         }
-    //     }
-    // }
-
     public List<Character> GetEnemies(Character requester)
     {
-        // try
-        // {
-
-
-        //Debug.Log("GetEnemies called for: " + requester.name);
 
         List<Character> enemies = new List<Character>();
 
@@ -70,28 +47,9 @@ public class GameManager : MonoBehaviour
             enemies.AddRange(playerAnimals);
         }
 
-        // フィルタリング前の敵リストを表示
-        //Debug.Log("Before filtering: ");
-        foreach (Character enemy in enemies)
-        {
-            // Debug.Log("Found enemy: " + enemy.name + " (Team: " + enemy.team + ")");
-        }
-        // チーム番号でフィルタリング
         List<Character> filteredEnemies = enemies.FindAll(e => e != null && e.gameObject != null
                                                             && e.team != requester.team);
-        // フィルタリング後の敵リストを表示
-        //Debug.Log("After filtering: ");
-        foreach (Character enemy in filteredEnemies)
-        {
-            //Debug.Log("Filtered enemy: " + enemy.name + " (Team: " + enemy.team + ")");
-        }
         return filteredEnemies;
-        // }
-        // catch (Exception e)
-        // {
-        //     Debug.LogError("Error in GetEnemies" + e.Message);
-        //     return new List<Character>();
-        // }
     }
 
     public List<Character> GetEnemiesForTower(Tower tower)
@@ -111,6 +69,23 @@ public class GameManager : MonoBehaviour
                                                         && e.team != tower.team);
 
         return filteredEnemies;
+    }
+
+    public List<Character> GetAllies(Character requester)
+    {
+        List<Character> allies = new List<Character>();
+
+        if (playerAnimals.Contains(requester))
+        {
+            allies.AddRange(playerAnimals);
+        }
+        else if (botAnimals.Contains(requester))
+        {
+            allies.AddRange(botAnimals);
+        }
+        List<Character> filteredAllies = allies.FindAll(a => a != null && a.gameObject != null && a.gameObject.activeInHierarchy
+                                                        && a.team == requester.team && a != requester);
+        return filteredAllies;
     }
     public void RemoveAnimal(Character animal)
     {
