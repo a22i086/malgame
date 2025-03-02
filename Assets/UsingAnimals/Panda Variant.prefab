@@ -215,7 +215,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1166590740}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.46679702, w: 0.8843645}
   m_LocalPosition: {x: 0, y: 1.193, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -840,7 +840,7 @@ MonoBehaviour:
   isSpawnConfirmed: 0
   HealShoot: {fileID: 1166590741}
   healAmount: 10
-  healCooldown: 5
+  healCooldown: 3
   healProjectilePrefab: {fileID: 6550101573449252601, guid: bf762f566dbc3cb4f91cb2ec6dfd8d06, type: 3}
 --- !u!114 &763259390
 MonoBehaviour:

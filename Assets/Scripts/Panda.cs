@@ -10,8 +10,8 @@ public class Panda : Character, IHealth
     public float Health => healthManager.Health;
     public float MaxHealth => healthManager.MaxHealth;
     public Transform HealShoot; // ヒールポジション
-    public float healAmount = 10f; // 回復量
-    public float healCooldown = 1f; // 回復クールダウン
+    public float healAmount = 100f; // 回復量
+    public float healCooldown = 3f; // 回復クールダウン
     public GameObject healProjectilePrefab; // 回復用のスフィアなどのオブジェクト
     private float lastHealTime;
 
@@ -79,8 +79,15 @@ public class Panda : Character, IHealth
         Rigidbody rb = healProjectile.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            Vector3 direction = (target.position - transform.position).normalized;
+            Vector3 direction = (target.position - HealShoot.position).normalized;
             rb.velocity = direction * 50f; // 投げる速度を調整
+        }
+
+        // HealProjectileスクリプトにパラメータを設定
+        HealProjectile healScript = healProjectile.GetComponent<HealProjectile>();
+        if (healScript != null)
+        {
+            healScript.healEffectPrefab = attackEffectPrefab;
         }
 
         // スフィアがターゲットに到達するまで待機
@@ -95,7 +102,6 @@ public class Panda : Character, IHealth
             IHealth allyHealth = target.GetComponent<IHealth>();
             if (allyHealth != null && allyHealth.Health < allyHealth.MaxHealth)
             {
-                allyHealth.TakeDamage(-healAmount); // 回復はダメージの負値として処理
                 ShowHealEffect(target);
             }
 
