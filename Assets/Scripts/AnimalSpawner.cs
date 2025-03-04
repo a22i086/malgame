@@ -14,6 +14,7 @@ public class AnimalSpawner : MonoBehaviour
     public Sprite elephantSprite;
     public Sprite slowtrapSprite;
     public Sprite BoarSprite;
+    public Sprite PandaSprite;
 
     // public GameObject chickenPrefab;
     public GameObject dogPrefab;
@@ -22,6 +23,7 @@ public class AnimalSpawner : MonoBehaviour
     public GameObject elephantPrefab;
     public GameObject slowtrapPrefab;
     public GameObject BoarPrefab;
+    public GameObject PandaPrefab;
 
     private Dictionary<int, Sprite> animalSprites;
     private Dictionary<int, GameObject> animalPrefabs;
@@ -37,7 +39,8 @@ public class AnimalSpawner : MonoBehaviour
             { 2, eagleSprite },
             { 3, elephantSprite},
             { 4, slowtrapSprite},
-            { 5, BoarSprite}
+            { 5, BoarSprite},
+            { 6, PandaSprite}
         };
 
         animalPrefabs = new Dictionary<int, GameObject>
@@ -48,7 +51,8 @@ public class AnimalSpawner : MonoBehaviour
             { 2, eaglePrefab },
             { 3, elephantPrefab},
             { 4, slowtrapPrefab},
-            { 5, BoarPrefab}
+            { 5, BoarPrefab},
+            { 6, PandaPrefab}
         };
 
         string selectedAnimalsString = PlayerPrefs.GetString("SelectedAnimals");

@@ -6778,7 +6778,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1124735887
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8172,6 +8172,7 @@ MonoBehaviour:
   - {fileID: 360092927}
   - {fileID: 1034938792}
   - {fileID: 1591236923}
+  - {fileID: 1124735891}
   dragDropScripts:
   - {fileID: 1319035035}
   - {fileID: 2128694712}
@@ -8179,18 +8180,21 @@ MonoBehaviour:
   - {fileID: 360092924}
   - {fileID: 1034938791}
   - {fileID: 1591236922}
+  - {fileID: 1124735890}
   dogSprite: {fileID: 21300000, guid: 4de43d407695d234f966d1227720e337, type: 3}
   horseSprite: {fileID: 21300000, guid: 19fc82fd0f7d7894b9fab0f74e3caa00, type: 3}
   eagleSprite: {fileID: 21300000, guid: c996720dd605d9c46a3670dbc662ed47, type: 3}
   elephantSprite: {fileID: 21300000, guid: ed53a075cfd4a4847a65b4ead0a74a19, type: 3}
   slowtrapSprite: {fileID: 21300000, guid: edfab7cf7734cde47a8a274757b5d83e, type: 3}
   BoarSprite: {fileID: 21300000, guid: fdb0acdd1ed69814093e8041cbb47410, type: 3}
+  PandaSprite: {fileID: 21300000, guid: cd8601e682034cd4d8192f46d0d4f614, type: 3}
   dogPrefab: {fileID: 1975505327361874111, guid: 7e65553da118d254a8d10998f8fe38fd, type: 3}
   horsePrefab: {fileID: 6693446660304626412, guid: 43bd1953f3878c1469dce88d0eb04c11, type: 3}
   eaglePrefab: {fileID: 2684139197734781563, guid: e550214e64f51d84194f71d489956d78, type: 3}
   elephantPrefab: {fileID: 6567792375640689607, guid: 0f2d3043050cadf40bcd3683a5a89dfa, type: 3}
   slowtrapPrefab: {fileID: 6231700577981606768, guid: 223f7ae4c13fd7f4fb32ccd6ea60607f, type: 3}
   BoarPrefab: {fileID: 7589971973584804326, guid: fd7675a93cbc192409f5bca60d689f95, type: 3}
+  PandaPrefab: {fileID: 6964737270637579821, guid: 389100f9b140ced4f8f34e08b47baec6, type: 3}
 --- !u!1 &1307034176 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0434cb7206862f54b9772c707e1c5274, type: 3}
@@ -8840,7 +8844,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 720.00006, y: 1280.0001}
+  m_SizeDelta: {x: 720, y: 1280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1433909790
 MonoBehaviour:
