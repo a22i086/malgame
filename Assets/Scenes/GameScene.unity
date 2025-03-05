@@ -8219,7 +8219,7 @@ MonoBehaviour:
   - {fileID: 7589971973584804326, guid: fd7675a93cbc192409f5bca60d689f95, type: 3}
   - {fileID: 6567792375640689607, guid: 0f2d3043050cadf40bcd3683a5a89dfa, type: 3}
   spawnPoint: {fileID: 111606447}
-  spawnInterval: 2
+  spawnInterval: 5
   waitTimeAfterSpawn: 2
   gameManager: {fileID: 0}
   enemyAlert: {fileID: 0}
