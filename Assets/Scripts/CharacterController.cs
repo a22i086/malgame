@@ -51,7 +51,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void HandleCharacterSelected(GameObject character) //選択されたときに呼び出される この部分が怪しい(犬以外の挙動について)
+    private void HandleCharacterSelected(GameObject character) //キャラクター選択
     {
         if (Time.time - lastClickTime > clickCooldown)
         {
@@ -60,16 +60,24 @@ public class CharacterController : MonoBehaviour
         }
         lastClickTime = Time.time;
     }
+    {
+        if (Time.time - lastClickTime > clickCooldown)
+        {
+            selectedCharacter = character;
+            Debug.Log($"{character.name} selected at {Time.time}");
+        }
+lastClickTime = Time.time;
+    }
 
     private void HandleMoveCommand(Vector3 targetPosition) //移動コマンド
+{
+    if (selectedCharacter != null)
     {
-        if (selectedCharacter != null)
+        ICharacter character = selectedCharacter.GetComponent<ICharacter>();
+        if (character != null)
         {
-            ICharacter character = selectedCharacter.GetComponent<ICharacter>();
-            if (character != null)
-            {
-                character.Move(targetPosition);
-            }
+            character.Move(targetPosition);
         }
     }
+}
 }

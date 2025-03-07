@@ -5,7 +5,7 @@ using UnityEngine;
 using YourNamespace; // SelectableCharacterクラスが含まれている名前空間を追加
 
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour //現在使用してない
 {
     [SerializeField] float speed;
     [SerializeField] LayerMask groundLayer; // 地面レイヤーを指定

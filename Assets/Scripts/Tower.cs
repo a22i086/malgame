@@ -29,9 +29,6 @@ public class Tower : MonoBehaviour, IHealth
         originalColor = towerRenderer.material.color;
         gameManager = FindObjectOfType<GameManager>(); //ゲームマネージャーをシーンから見つけて取得
 
-        // Vector3 firePointPosition = firePoint.position;
-        // firePointPosition.y += 1.0f;
-        // firePoint.position = firePointPosition;
 
     }
     void Awake()

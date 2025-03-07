@@ -20,7 +20,7 @@ public class AnimalController : MonoBehaviour
         character = GetComponent<ICharacter>();
         selectionCircleInstance = Instantiate(selectionCirclePrefab, transform.position, Quaternion.Euler(0f, 0f, 0f), transform);
         selectionCircleInstance.SetActive(false);
-        //動物のサイズに応じてサークルのスケールを調整してるつもり、わかんない
+        //動物のサイズに応じてサークルのスケールを調整している
         float scaleFactor_x = transform.localScale.x;
         float scaleFactor_z = transform.localScale.z;
 

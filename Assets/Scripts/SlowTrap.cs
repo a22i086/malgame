@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SlowTrap : MonoBehaviour
 {
-    public float slowAmount = 0.1f; // 減速率（0.5 は速度を半分にします）
+    public float slowAmount = 0.1f; // 減速率（0.5 は速度を半分に）
     public float slowDuration = 5f; // 減速時間（秒）
 
     void Start()

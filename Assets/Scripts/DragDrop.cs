@@ -235,20 +235,6 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         SpawnRangeManager.Instance.ReduceSpawnRange();
         //Debug.Log("スポーン範囲が狭まった！");
     }
-    // 別スクリプトに移動
-    //     private Vector3 ClampToSpawnRange(Vector3 position)
-    //     {
-    //         // position.x = Mathf.Clamp(position.x, stageMinBounds.x, stageMaxBounds.x);
-    //         // position.z = Mathf.Clamp(position.z, stageMinBounds.z, stageMaxBounds.z);
-
-    //         Vector3 clampedPosition = new Vector3(
-    //        Mathf.Clamp(position.x, stageMinBounds.x, stageMaxBounds.x),
-    //        position.y,
-    //        Mathf.Clamp(position.z, stageMinBounds.z, stageMaxBounds.z)
-    //    );
-
-    //         return clampedPosition;
-    //     }
 
     private bool IsInView(Vector3 position)
     {

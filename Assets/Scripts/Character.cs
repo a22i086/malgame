@@ -13,7 +13,6 @@ public abstract class Character : MonoBehaviour, ICharacter
     public float spawnCooldown;
     protected float attackCooldown;
     protected float lastAttackTime;
-    //private float Difference2Enemy = 3.0f;
     public NavMeshAgent agent;
     protected Transform target;
     public GameObject attackEffectPrefab;
@@ -241,9 +240,6 @@ public abstract class Character : MonoBehaviour, ICharacter
 
     protected virtual IEnumerator Die()
     {
-        // animator.SetBool("isAttacking", false);
-        // animator.SetBool("isRunning", false);
-        // animator.SetBool("Idle", false);
         animator.SetBool("isDead", true);
         agent.isStopped = true;
 

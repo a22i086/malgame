@@ -52,11 +52,6 @@ public class Chicken : Character, IHealth
         Vector3 position = transform.position;
         position.y = initialPosition.y;
         transform.position = position;
-
-        // if (isPlayerControlled)
-        // {
-        //     agent.nextPosition = transform.position;
-        // }
     }
 
     public override void Move(Vector3 targetPosition)

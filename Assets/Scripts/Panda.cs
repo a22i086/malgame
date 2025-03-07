@@ -121,7 +121,7 @@ public class Panda : Character, IHealth
 
     public override void Move(Vector3 targetPosition)
     {
-
+        // パンダは移動しないので空のメソッド
     }
 
     public override void Attack()

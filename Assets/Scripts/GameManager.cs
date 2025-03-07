@@ -136,9 +136,4 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1;
     }
-
-    // internal void AddBotAnimal(AnimalController animalController)
-    // {
-    //     throw new NotImplementedException();
-    // }
 }
